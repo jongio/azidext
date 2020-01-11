@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PackageId>JonGallant.Azure.Identity.Extensions</PackageId>
+    <Description>A library that extends the base Azure.Identity functionality.</Description>
+    <Version>0.0.3-preview</Version>
+    <Authors>Jon Gallant</Authors>
+    <Company>Jon Gallant</Company>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/jongio/azidext</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.21" />
+  </ItemGroup>
+
+</Project>
