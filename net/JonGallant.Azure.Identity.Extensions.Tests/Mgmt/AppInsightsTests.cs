@@ -4,7 +4,7 @@ using Microsoft.Azure.Management.ApplicationInsights.Management.Models;
 using System;
 using Xunit;
 
-namespace JonGallant.Azure.Identity.Extensions.Tests
+namespace JonGallant.Azure.Identity.Extensions.Tests.Mgmt
 {
     public class AppInsightsTests
     {

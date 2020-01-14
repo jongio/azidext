@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace JonGallant.Azure.Identity.Extensions.Tests
+namespace JonGallant.Azure.Identity.Extensions.Tests.Mgmt
 {
     public class CosmosDBTests
     {
