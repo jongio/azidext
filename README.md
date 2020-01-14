@@ -13,7 +13,8 @@ The `DefaultAzureMgmtCredential` class allows you to use all the goodness of `Az
 
 Example usage:
 
-Add Nuget dependencies:
+
+### Application Insights
 
 ```
 dotnet add package JonGallant.Azure.Identity.Extensions
@@ -26,6 +27,23 @@ using JonGallant.Azure.Identity.Extensions;
 using Microsoft.Azure.Management.ApplicationInsights.Management;
 
 var appInsightsClient = new ApplicationInsightsManagementClient(new DefaultAzureMgmtCredential());
+```
+
+
+### CosmosDB
+
+```
+dotnet add package JonGallant.Azure.Identity.Extensions
+dotnet add package Microsoft.Azure.Management.CosmosDB --version 1.0.1
+```
+
+Use DefaultAzureMgmtCredential in place of ServiceClientCredential:
+```csharp
+using JonGallant.Azure.Identity.Extensions;
+using Microsoft.Azure.Management.CosmosDB;
+using Microsoft.Azure.Management.CosmosDB.Models;
+
+var client = new CosmosDBManagementClient(new DefaultAzureMgmtCredential());
 ```
 
 More to come soon.  Please file a GitHub issue with any questions/suggestions.

@@ -13,15 +13,15 @@ namespace JonGallant.Azure.Identity.Extensions.Tests
         {
             Env.Load("../../../.env");
 
-            var appInsightsClient = new ApplicationInsightsManagementClient(new DefaultAzureMgmtCredential());
-            appInsightsClient.SubscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
+            var client = new ApplicationInsightsManagementClient(new DefaultAzureMgmtCredential());
+            client.SubscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
 
-            var appInsightsComponent = new ApplicationInsightsComponent("westus", "web", "web");
-            var appInsightsName = Environment.GetEnvironmentVariable("APPINSIGHTS_NAME") + Guid.NewGuid().ToString("n").Substring(0, 8);
-            
-            appInsightsComponent = appInsightsClient.Components.CreateOrUpdate(Environment.GetEnvironmentVariable("AZURE_RESOURCE_GROUP"), appInsightsName, appInsightsComponent);
+            var component = new ApplicationInsightsComponent(Environment.GetEnvironmentVariable("AZURE_REGION"), "web", "web");
+            var name = Environment.GetEnvironmentVariable("APPINSIGHTS_NAME") + Guid.NewGuid().ToString("n").Substring(0, 8);
 
-            Assert.NotNull(appInsightsComponent.CreationDate);
+            component = client.Components.CreateOrUpdate(Environment.GetEnvironmentVariable("AZURE_RESOURCE_GROUP"), name, component);
+
+            Assert.NotNull(component.CreationDate);
         }
     }
 }
