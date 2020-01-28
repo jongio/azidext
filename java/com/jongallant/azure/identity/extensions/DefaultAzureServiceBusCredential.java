@@ -1,4 +1,4 @@
-package com.microsoft.azure.servicebus;
+package com.jongallant.azure.identity.extensions;
 
 import com.azure.core.credential.TokenRequestContext;
 import com.azure.identity.DefaultAzureCredential;
