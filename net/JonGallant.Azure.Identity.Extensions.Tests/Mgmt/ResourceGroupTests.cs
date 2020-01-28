@@ -2,7 +2,6 @@ using DotNetEnv;
 using Microsoft.Azure.Management.ResourceManager;
 using Microsoft.Azure.Management.ResourceManager.Models;
 using System;
-using System.Collections.Generic;
 using Xunit;
 
 namespace JonGallant.Azure.Identity.Extensions.Tests.Mgmt
@@ -10,7 +9,7 @@ namespace JonGallant.Azure.Identity.Extensions.Tests.Mgmt
     public class ResourceGroupTests
     {
         [Fact]
-        public void CreateResourceGroupTest()
+        public async void CreateResourceGroupTest()
         {
             Env.Load("../../../.env");
 
@@ -21,7 +20,7 @@ namespace JonGallant.Azure.Identity.Extensions.Tests.Mgmt
 
             var rg = new ResourceGroup(location:Environment.GetEnvironmentVariable("AZURE_REGION"), name:name);
 
-            var result = client.ResourceGroups.CreateOrUpdate(name, rg);
+            var result = await client.ResourceGroups.CreateOrUpdateAsync(name, rg);
             
             Assert.Equal(result.Name, name);
         }

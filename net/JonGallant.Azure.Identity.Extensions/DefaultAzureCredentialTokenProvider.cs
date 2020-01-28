@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace JonGallant.Azure.Identity.Extensions
 {
-    public class DefaultAzureMgmtCredentialTokenProvider : ITokenProvider
+    public class DefaultAzureCredentialTokenProvider : ITokenProvider
 
     {
         private string accessToken;
@@ -16,7 +16,14 @@ namespace JonGallant.Azure.Identity.Extensions
         private static readonly TimeSpan ExpirationThreshold = TimeSpan.FromMinutes(5);
         private string[] scopes;
 
-        public DefaultAzureMgmtCredentialTokenProvider(string[] scopes = null)
+        private DefaultAzureCredential defaultAzureCredential;
+
+
+        public DefaultAzureCredentialTokenProvider(string[] scopes = null) : this(new DefaultAzureCredential(), scopes)
+        {
+        }
+
+        public DefaultAzureCredentialTokenProvider(DefaultAzureCredential defaultAzureCredential, string[] scopes = null)
         {
             if (scopes == null || scopes.Length == 0)
             {
@@ -24,20 +31,25 @@ namespace JonGallant.Azure.Identity.Extensions
             }
 
             this.scopes = scopes;
+            this.defaultAzureCredential = defaultAzureCredential;
         }
 
         public virtual async Task<AuthenticationHeaderValue> GetAuthenticationHeaderAsync(CancellationToken cancellationToken)
         {
+            var accessToken = await GetTokenAsync(cancellationToken);
+            return new AuthenticationHeaderValue("Bearer", accessToken.Token);
+        }
 
+        public virtual async Task<AccessToken> GetTokenAsync(CancellationToken cancellationToken)
+        {
             if (AccessTokenExpired)
             {
-                var tokenResult = await new DefaultAzureCredential().GetTokenAsync(new TokenRequestContext(this.scopes)).ConfigureAwait(false);
+                var tokenResult = await this.defaultAzureCredential.GetTokenAsync(new TokenRequestContext(this.scopes), cancellationToken).ConfigureAwait(false);
                 this.accessToken = tokenResult.Token;
                 this.expiration = tokenResult.ExpiresOn;
             }
 
-            return new AuthenticationHeaderValue("Bearer", this.accessToken);
-
+            return new AccessToken(this.accessToken, this.expiration);
         }
 
         protected virtual bool AccessTokenExpired

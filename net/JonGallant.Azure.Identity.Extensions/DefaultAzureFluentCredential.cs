@@ -1,4 +1,5 @@
-﻿using Microsoft.Azure.Management.ResourceManager.Fluent;
+﻿using Azure.Identity;
+using Microsoft.Azure.Management.ResourceManager.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Authentication;
 using Microsoft.Rest;
 using Microsoft.Rest.Azure.Authentication;
@@ -15,11 +16,17 @@ namespace JonGallant.Azure.Identity.Extensions
 {
     public class DefaultAzureFluentCredential : AzureCredentials
     {
-        private IDictionary<Uri, ServiceClientCredentials> credentialsCache;
+        private IDictionary<Uri, ServiceClientCredentials> credentialsCache = new ConcurrentDictionary<Uri, ServiceClientCredentials>();
+        private DefaultAzureCredential defaultAzureCredential;
+
+        public DefaultAzureFluentCredential(DefaultAzureCredential defaultAzureCredential, string tenantId, AzureEnvironment environment) : base(default(DeviceCredentialInformation), tenantId, environment)
+        {
+            this.defaultAzureCredential = defaultAzureCredential;
+        }
 
         public DefaultAzureFluentCredential(string tenantId, AzureEnvironment environment) : base(default(DeviceCredentialInformation), tenantId, environment)
         {
-            credentialsCache = new ConcurrentDictionary<Uri, ServiceClientCredentials>();
+            this.defaultAzureCredential = new DefaultAzureCredential();
         }
 
         public async override Task ProcessHttpRequestAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -68,10 +75,10 @@ namespace JonGallant.Azure.Identity.Extensions
             }
 
             // END COPY FROM FLUENT
-            
+
             if (!credentialsCache.ContainsKey(adSettings.TokenAudience))
             {
-                credentialsCache[adSettings.TokenAudience] = new DefaultAzureMgmtCredential();
+                credentialsCache[adSettings.TokenAudience] = new DefaultAzureMgmtCredential(this.defaultAzureCredential);
             }
             await credentialsCache[adSettings.TokenAudience].ProcessHttpRequestAsync(request, cancellationToken);
         }
