@@ -9,7 +9,7 @@ namespace JonGallant.Azure.Identity.Extensions.Tests.Mgmt
     public class AppInsightsTests
     {
         [Fact]
-        public void CreateAppInsightsTest()
+        public async void CreateAppInsightsTest()
         {
             Env.Load("../../../.env");
 
@@ -19,7 +19,7 @@ namespace JonGallant.Azure.Identity.Extensions.Tests.Mgmt
             var component = new ApplicationInsightsComponent(Environment.GetEnvironmentVariable("AZURE_REGION"), "web", "web");
             var name = Environment.GetEnvironmentVariable("APPINSIGHTS_NAME") + Guid.NewGuid().ToString("n").Substring(0, 8);
 
-            component = client.Components.CreateOrUpdate(Environment.GetEnvironmentVariable("AZURE_RESOURCE_GROUP"), name, component);
+            component = await client.Components.CreateOrUpdateAsync(Environment.GetEnvironmentVariable("AZURE_RESOURCE_GROUP"), name, component);
 
             Assert.NotNull(component.CreationDate);
         }
