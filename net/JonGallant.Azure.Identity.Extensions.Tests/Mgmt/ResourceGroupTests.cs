@@ -11,7 +11,7 @@ namespace JonGallant.Azure.Identity.Extensions.Tests.Mgmt
         [Fact]
         public async void CreateResourceGroupTest()
         {
-            Env.Load("../../../.env");
+            Env.Load("../../../../../.env");
 
             var client = new ResourceManagementClient(new DefaultAzureMgmtCredential());
             client.SubscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");

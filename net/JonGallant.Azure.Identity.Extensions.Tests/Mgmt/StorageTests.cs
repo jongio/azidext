@@ -11,7 +11,7 @@ namespace JonGallant.Azure.Identity.Extensions.Tests.Mgmt
         public async void ReadStorageAccountLocationTest()
         {
             // Pre-req: Storage account created.
-            Env.Load("../../../.env");
+            Env.Load("../../../../../.env");
 
             var client = new StorageManagementClient(new DefaultAzureMgmtCredential());
 

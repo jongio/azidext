@@ -13,7 +13,7 @@ namespace JonGallant.Azure.Identity.Extensions.Tests.ServiceBus
         [Fact]
         public async void TopicClientTests()
         {
-            Env.Load("../../../.env");
+            Env.Load("../../../../../.env");
 
             var client = new TopicClient(Environment.GetEnvironmentVariable("AZURE_SERVICE_BUS_ENDPOINT"),
                                          Environment.GetEnvironmentVariable("AZURE_SERVICE_BUS_ENTITY_PATH"),
