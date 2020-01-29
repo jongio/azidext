@@ -10,9 +10,9 @@ namespace JonGallant.Azure.Identity.Extensions.Tests.Mgmt
     public class CosmosDBTests
     {
         [Fact]
-        public void CreateCosmosDBTest()
+        public async void CheckCosmosNameExistsTest()
         {
-            Env.Load("../../../.env");
+            Env.Load("../../../../../.env");
 
 
             var client = new CosmosDBManagementClient(new DefaultAzureMgmtCredential());
@@ -20,15 +20,9 @@ namespace JonGallant.Azure.Identity.Extensions.Tests.Mgmt
 
             var name = Environment.GetEnvironmentVariable("COSMOSDB_NAME") + Guid.NewGuid().ToString("n").Substring(0, 8);
 
-            var parameters = new DatabaseAccountCreateUpdateParameters
-            {
-                Location = Environment.GetEnvironmentVariable("AZURE_REGION"),
-                Locations = new List<Location> { new Location(locationName: Environment.GetEnvironmentVariable("AZURE_REGION")) }
-            };
-
-            var results = client.DatabaseAccounts.CreateOrUpdate(Environment.GetEnvironmentVariable("AZURE_RESOURCE_GROUP"), name, parameters);
-
-            Assert.Equal(results.Name, name);
+            var results = await client.DatabaseAccounts.CheckNameExistsAsync(name);
+            
+            Assert.False(results);
         }
     }
 }

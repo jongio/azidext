@@ -10,11 +10,7 @@ This repo is a place for us to share ideas and extensions to the Azure Identity 
 
 The `DefaultAzureMgmtCredential` class allows you to use all the goodness of `Azure.Identity.DefaultAzureCredential` in the Azure Management libraries. You can use it in place of `ServiceClientCredential` when calling your Azure Management APIs. The Azure Management libraries will be updated to support Azure Identity and Azure Core in early 2020, so this should just be used a a stopgap between now and then.
 
-Example usage:
-
-
-### Application Insights
-
+### .NET
 ```
 dotnet add package JonGallant.Azure.Identity.Extensions
 dotnet add package Microsoft.Azure.Management.ApplicationInsights --version 0.2.0-preview
@@ -28,43 +24,11 @@ using Microsoft.Azure.Management.ApplicationInsights.Management;
 var appInsightsClient = new ApplicationInsightsManagementClient(new DefaultAzureMgmtCredential());
 ```
 
-
-### CosmosDB
-
-```
-dotnet add package JonGallant.Azure.Identity.Extensions
-dotnet add package Microsoft.Azure.Management.CosmosDB --version 1.0.1
-```
-
-Use DefaultAzureMgmtCredential in place of ServiceClientCredential:
-```csharp
-using JonGallant.Azure.Identity.Extensions;
-using Microsoft.Azure.Management.CosmosDB;
-using Microsoft.Azure.Management.CosmosDB.Models;
-
-var client = new CosmosDBManagementClient(new DefaultAzureMgmtCredential());
-```
-
-### Storage
-
-```
-dotnet add package JonGallant.Azure.Identity.Extensions
-dotnet add package Microsoft.Azure.Management.Storage --version 14.3.0
-```
-
-Use DefaultAzureMgmtCredential in place of ServiceClientCredential:
-```csharp
-using JonGallant.Azure.Identity.Extensions;
-using Microsoft.Azure.Management.Storage;
-
-var client = new StorageManagementClient(new DefaultAzureMgmtCredential());
-```
-
 ## DefaultAzureFluentCredential
 
 The `DefaultAzureFluentCredential` class allows you to use all the goodness of `Azure.Identity.DefaultAzureCredential` in the [Azure Management **Fluent** libraries](https://github.com/Azure/azure-libraries-for-net). You can use it in place of `AzureCredentials` when calling your Azure Management Fluent APIs. 
 
-### Resource Group
+### .NET
 
 ```
 dotnet add package JonGallant.Azure.Identity.Extensions
@@ -85,6 +49,23 @@ var resourceGroup = Azure.Authenticate(creds)
                         .Define(name)
                         .WithRegion(region)
                         .Create();
+```
+
+## DefaultAzureServiceBusCredential
+
+The `DefaultAzureServiceBusCredential` class allows you to use all of the goodness of `Azure.Identity.DefaultAzureCredential` with the Service Bus SDKs.  Service Bus will officially be supported by the new SDKs soon, this is a stopgap that enables you to use the same credential flow throughout your application.
+
+### .NET
+```
+dotnet add package JonGallant.Azure.Identity.Extensions
+dotnet add package Microsoft.Azure.ServiceBus --version 4.1.1
+```
+
+```csharp
+using JonGallant.Azure.Identity.Extensions;
+using Microsoft.Azure.ServiceBus;
+
+var client = new TopicClient("sbendpoint", "entitypath", new DefaultAzureServiceBusCredential());
 ```
 
 More to come soon.  Please file a GitHub issue with any questions/suggestions.
