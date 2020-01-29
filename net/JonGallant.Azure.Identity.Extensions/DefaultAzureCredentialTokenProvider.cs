@@ -11,13 +11,11 @@ namespace JonGallant.Azure.Identity.Extensions
     public class DefaultAzureCredentialTokenProvider : ITokenProvider
 
     {
-        private string accessToken;
-        private DateTimeOffset expiration;
+        private AccessToken? accessToken;
         private static readonly TimeSpan ExpirationThreshold = TimeSpan.FromMinutes(5);
         private string[] scopes;
 
         private DefaultAzureCredential defaultAzureCredential;
-
 
         public DefaultAzureCredentialTokenProvider(string[] scopes = null) : this(new DefaultAzureCredential(), scopes)
         {
@@ -42,19 +40,17 @@ namespace JonGallant.Azure.Identity.Extensions
 
         public virtual async Task<AccessToken> GetTokenAsync(CancellationToken cancellationToken)
         {
-            if (AccessTokenExpired)
+            if (!this.accessToken.HasValue || AccessTokenExpired)
             {
-                var tokenResult = await this.defaultAzureCredential.GetTokenAsync(new TokenRequestContext(this.scopes), cancellationToken).ConfigureAwait(false);
-                this.accessToken = tokenResult.Token;
-                this.expiration = tokenResult.ExpiresOn;
+                this.accessToken = await this.defaultAzureCredential.GetTokenAsync(new TokenRequestContext(this.scopes), cancellationToken).ConfigureAwait(false);
             }
 
-            return new AccessToken(this.accessToken, this.expiration);
+            return this.accessToken.Value;
         }
 
         protected virtual bool AccessTokenExpired
         {
-            get { return DateTime.UtcNow + ExpirationThreshold >= this.expiration; }
+            get { return !this.accessToken.HasValue ? true : (DateTime.UtcNow + ExpirationThreshold >= this.accessToken.Value.ExpiresOn); }
         }
     }
 }
