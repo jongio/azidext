@@ -12,7 +12,7 @@ namespace JonGallant.Azure.Identity.Extensions.Tests.Mgmt
         [Fact]
         public async void CheckCosmosNameExistsTest()
         {
-            Env.Load("../../../.env");
+            Env.Load("../../../../../.env");
 
 
             var client = new CosmosDBManagementClient(new DefaultAzureMgmtCredential());
@@ -22,7 +22,7 @@ namespace JonGallant.Azure.Identity.Extensions.Tests.Mgmt
 
             var results = await client.DatabaseAccounts.CheckNameExistsAsync(name);
             
-            Assert.Equal(false, results);
+            Assert.False(results);
         }
     }
 }
