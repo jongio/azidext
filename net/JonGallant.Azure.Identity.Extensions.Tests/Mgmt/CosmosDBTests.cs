@@ -22,7 +22,7 @@ namespace JonGallant.Azure.Identity.Extensions.Tests.Mgmt
 
             var results = await client.DatabaseAccounts.CheckNameExistsAsync(name);
             
-            Assert.Equal(results, false);
+            Assert.Equal(false, results);
         }
     }
 }
