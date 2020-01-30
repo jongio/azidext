@@ -68,8 +68,6 @@ using Microsoft.Azure.ServiceBus;
 var client = new TopicClient("sbendpoint", "entitypath", new DefaultAzureServiceBusCredential());
 ```
 
-
-
 ### Java
 
 To import this package into your maven application, add the following to the`<dependencies>` section.
@@ -88,9 +86,5 @@ Sample code to create a new topic client:
 ClientSettings clientSettings = new ClientSettings(new DefaultAzureServiceBusCredential());
 TopicClient topicClient = new TopicClient("servicebus-endpoint", "servicebus-entitypath", clientSettings);
 ```
-
-
-
-
 
 More to come soon.  Please file a GitHub issue with any questions/suggestions.
