@@ -19,6 +19,16 @@
       <artifactId>azure-identity</artifactId>
       <version>1.0.3</version>
     </dependency>
+    <dependency>
+      <groupId>com.microsoft.rest</groupId>
+      <artifactId>client-runtime</artifactId>
+      <version>1.7.0</version>
+    </dependency>
+    <dependency>
+      <groupId>com.microsoft.azure</groupId>
+      <artifactId>azure</artifactId>
+      <version>1.30.0</version>
+    </dependency>
 
     <!-- Test dependencies -->
     <dependency>
@@ -43,6 +53,7 @@
       <version>5.5.2</version>
     </dependency>
   </dependencies>
+
   <build>
     <plugins>
       <plugin>
