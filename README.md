@@ -68,4 +68,23 @@ using Microsoft.Azure.ServiceBus;
 var client = new TopicClient("sbendpoint", "entitypath", new DefaultAzureServiceBusCredential());
 ```
 
+### Java
+
+To import this package into your maven application, add the following to the`<dependencies>` section.
+
+```xml
+<dependency>
+  <groupId>com.jongallant</groupId>
+  <artifactId>azure-extensions</artifactId>
+  <version>1.0</version>
+</dependency>
+```
+
+Sample code to create a new topic client:
+
+```java
+ClientSettings clientSettings = new ClientSettings(new DefaultAzureServiceBusCredential());
+TopicClient topicClient = new TopicClient("servicebus-endpoint", "servicebus-entitypath", clientSettings);
+```
+
 More to come soon.  Please file a GitHub issue with any questions/suggestions.
