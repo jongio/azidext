@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * This class provides a simple extension to use {@link DefaultAzureCredential} from com.azure:azure-identity library to
  * use with legacy Azure SDKs that accept {@link ServiceClientCredentials} family of credentials for authentication.
  */
-public class DefaultAzureLegacyCredential extends AzureTokenCredentials {
+public class DefaultAzureCredentialAdapter extends AzureTokenCredentials {
 
   public static final String MANAGEMENT_SCOPE = "https://management.azure.com/.default";
   private final DefaultAzureCredential defaultAzureCredential;
@@ -26,7 +26,7 @@ public class DefaultAzureLegacyCredential extends AzureTokenCredentials {
    *
    * @param tenantId The tenant id for the token credentials.
    */
-  public DefaultAzureLegacyCredential(String tenantId) {
+  public DefaultAzureCredentialAdapter(String tenantId) {
     this(AzureEnvironment.AZURE, tenantId);
   }
 
@@ -37,7 +37,7 @@ public class DefaultAzureLegacyCredential extends AzureTokenCredentials {
    * @param tenantId The tenant id for the token credentials.
    * @param defaultAzureCredential The {@link DefaultAzureCredential} instance to use.
    */
-  public DefaultAzureLegacyCredential(String tenantId, DefaultAzureCredential defaultAzureCredential) {
+  public DefaultAzureCredentialAdapter(String tenantId, DefaultAzureCredential defaultAzureCredential) {
     this(AzureEnvironment.AZURE, tenantId, defaultAzureCredential, new String[]{MANAGEMENT_SCOPE});
   }
 
@@ -47,7 +47,7 @@ public class DefaultAzureLegacyCredential extends AzureTokenCredentials {
    * @param environment The {@link AzureEnvironment} for which the credentials will be created.
    * @param tenantId The tenant id for the token credentials.
    */
-  public DefaultAzureLegacyCredential(AzureEnvironment environment, String tenantId) {
+  public DefaultAzureCredentialAdapter(AzureEnvironment environment, String tenantId) {
     this(environment, tenantId, new DefaultAzureCredentialBuilder().build(), new String[]{MANAGEMENT_SCOPE});
   }
 
@@ -59,7 +59,7 @@ public class DefaultAzureLegacyCredential extends AzureTokenCredentials {
    * @param defaultAzureCredential The {@link DefaultAzureCredential} instance to use.
    * @param scopes The scopes for the credential.
    */
-  public DefaultAzureLegacyCredential(AzureEnvironment environment, String tenantId,
+  public DefaultAzureCredentialAdapter(AzureEnvironment environment, String tenantId,
       DefaultAzureCredential defaultAzureCredential, String[] scopes) {
     super(environment, tenantId);
     this.defaultAzureCredential = defaultAzureCredential;

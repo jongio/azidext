@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Test;
 import rx.observers.TestSubscriber;
 
 /**
- * Tests for {@link DefaultAzureLegacyCredential}. These tests run against live Azure services to ensure credentials
+ * Tests for {@link DefaultAzureCredentialAdapter}. These tests run against live Azure services to ensure credentials
  * work correctly.
  */
-public class DefaultAzureLegacyCredentialTest {
+public class DefaultAzureCredentialAdapterTest {
 
   private static final String AZURE_STORAGE_ACCOUNT = "AZURE_STORAGE_ACCOUNT_NAME";
   private static final String AZURE_TENANT_ID = "AZURE_TENANT_ID";
@@ -41,7 +41,7 @@ public class DefaultAzureLegacyCredentialTest {
   public void testStorageAccountCreation() throws Exception {
     String tenantId = ENVIRONMENT.get(AZURE_TENANT_ID);
     // Create an instance of fluent Azure type which can be used for managing various Azure resources
-    Azure azure = Azure.authenticate(new DefaultAzureLegacyCredential(tenantId)).withDefaultSubscription();
+    Azure azure = Azure.authenticate(new DefaultAzureCredentialAdapter(tenantId)).withDefaultSubscription();
 
     // create a test storage account
     StorageAccount createdAccount =
