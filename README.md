@@ -70,15 +70,7 @@ var client = new TopicClient("sbendpoint", "entitypath", new DefaultAzureService
 
 ### Java
 
-To import this package into your maven application, add the following to the`<dependencies>` section.
-
-```xml
-<dependency>
-  <groupId>com.jongallant</groupId>
-  <artifactId>azure-extensions</artifactId>
-  <version>1.0</version>
-</dependency>
-```
+To use this type, just copy `DefaultAzureServiceBusCredential.java`  file located in `java/src/main/java/com/jongallant/azure/identity/extensions`directory into your application and make necessary package name updates.
 
 Sample code to create a new topic client:
 
