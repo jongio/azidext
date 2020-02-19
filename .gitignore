@@ -1,6 +1,6 @@
 .env
-.vscode/settings.json
 *.classpath
 *.factorypath
 *.project
 *.prefs
+.vscode/*

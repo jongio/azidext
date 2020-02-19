@@ -21,6 +21,14 @@ namespace JonGallant.Azure.Identity.Extensions
         {
         }
 
+        public DefaultAzureCredentialTokenProvider(bool includeInteractiveCredentials = false, string[] scopes = null) : this(new DefaultAzureCredential(includeInteractiveCredentials), scopes)
+        {
+        }
+
+        public DefaultAzureCredentialTokenProvider(DefaultAzureCredentialOptions options, string[] scopes = null) : this(new DefaultAzureCredential(options), scopes)
+        {
+        }
+
         public DefaultAzureCredentialTokenProvider(DefaultAzureCredential defaultAzureCredential, string[] scopes = null)
         {
             if (scopes == null || scopes.Length == 0)
