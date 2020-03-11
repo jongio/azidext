@@ -114,4 +114,29 @@ To run `DefaultAzureCredentailAdapterTest`, ensure you have `.env` file created 
 
 Once you have the `.env` file configured, run the test using JUnit 5 runner.
 
+## Python
+
+### default_azure_mgmt_credential.py
+
+The `DefaultAzureMgmtCredential` class provides a simple bridge to use `DefaultAzureCredential` from `Azure.Identity` SDKs. This is a convenient mechanism to authenticate all fluent Azure Management Resources and a some data plane SDKs that use `ServiceClientCredential` family of credentials.
+
+To use this type, just copy `default_azure_mgmt_credential.py` file located in `python/JonGallantAzureIdentityExtensions`directory into your application and make necessary package name updates.
+
+After you have created this type, you can reference it in your code as shown below:
+
+```python
+credential = DefaultAzureMgmtCredential()
+client = ServiceManagementClient(credential, subscription_id)
+```
+
+#### Testing DefaultAzureMgmtCredential
+
+This repository has a test class called `TestDefaultAzureMgmtCredential` that tests creation of a storage account, listing all storage accounts in a resource group to validate successful creation, then deleting the account created earlier in this test and listing again to ensure successful deletion.
+
+To run `TestDefaultAzureMgmtCredential`, please ensure that you have already set up the following environment variables:
+
+- AZURE_SUBSCRIPTION_ID
+- AZURE_STORAGE_ACCOUNT_NAME
+- AZURE_RESOURCE_GROUP
+
 More to come soon.  Please file a GitHub issue with any questions/suggestions.
