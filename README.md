@@ -118,9 +118,9 @@ Once you have the `.env` file configured, run the test using JUnit 5 runner.
 
 ### default_azure_mgmt_credential.py
 
-The `DefaultAzureMgmtCredential` class provides a simple bridge to use `DefaultAzureCredential` from `Azure.Identity` SDKs. This is a convenient mechanism to authenticate all fluent Azure Management Resources and a some data plane SDKs that use `ServiceClientCredential` family of credentials.
+The `DefaultAzureMgmtCredential` class provides a simple bridge to use `DefaultAzureCredential` from `Azure.Identity` SDKs. This is a convenient mechanism to authenticate all Azure Management Resources and a some data plane SDKs that use `ServiceClientCredential` family of credentials.
 
-To use this type, just copy `default_azure_mgmt_credential.py` file located in `python/JonGallantAzureIdentityExtensions`directory into your application and make necessary package name updates.
+To use this type, just copy `default_azure_mgmt_credential.py` file located in `python`directory into your application and make necessary package name updates.
 
 After you have created this type, you can reference it in your code as shown below:
 

@@ -1,10 +1,8 @@
 import os
 import sys
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import warnings
 import unittest
 from azure.mgmt.storage import StorageManagementClient
-from JonGallantAzureIdentityExtensions.default_azure_mgmt_credential import DefaultAzureMgmtCredential
+from default_azure_mgmt_credential import DefaultAzureMgmtCredential
 from azure.mgmt.storage.models import (
     StorageAccountCreateParameters,
     Sku,
@@ -17,12 +15,12 @@ class TestDefaultAzureMgmtCredential(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        warnings.simplefilter('ignore', ResourceWarning)
         subscription_id =  os.environ['AZURE_SUBSCRIPTION_ID']
         credential = DefaultAzureMgmtCredential()
         cls.storage_client = StorageManagementClient(credential, subscription_id)
         cls.RESOURCE_GROUP_NAME = os.environ['AZURE_RESOURCE_GROUP']
         cls.STORAGE_ACCOUNT_NAME = os.environ['AZURE_STORAGE_ACCOUNT_NAME']
+
 
     def test_storage_accounts(self):
         # -------------------------Create a storage account---------------------
