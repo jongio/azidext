@@ -53,13 +53,3 @@ class AzureIdentityCredentialWrapper(BasicTokenAuthentication):
     def signed_session(self, session=None):
         self.set_token()
         return super(AzureIdentityCredentialWrapper, self).signed_session(session)
-
-if __name__ == "__main__":
-    import os
-    credentials = AzureIdentityCredentialWrapper()
-    subscription_id = os.environ.get("AZURE_SUBSCRIPTION_ID", "<subscription_id>")
-
-    from azure.mgmt.resource import ResourceManagementClient
-    client = ResourceManagementClient(credentials, subscription_id)
-    for rg in client.resource_groups.list():
-        print(rg.name)
