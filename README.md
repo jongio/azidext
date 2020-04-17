@@ -118,7 +118,7 @@ Once you have the `.env` file configured, run the test using JUnit 5 runner.
 
 ### AzureIdentityCredentialAdapter
 
-The `AzureIdentityCredentialAdapter` class provides a simple adapter to use any credential from [azure-identity](https://pypi.org/project/azure-identity/) an SDK
+The `AzureIdentityCredentialAdapter` class provides a simple adapter to use any credential from [azure-identity](https://pypi.org/project/azure-identity/) with any SDK
 that accepts credentials from `azure.common.credentials` or `msrestazure.azure_active_directory`.
 
 To use this type, just copy the `azure_identity_credential_adapter.py` file located in the `python` directory into your application and make necessary package name updates.
