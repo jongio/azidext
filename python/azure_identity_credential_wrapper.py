@@ -1,3 +1,8 @@
+# ------------------------------------
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+# ------------------------------------
+
 # Wrap credentials from azure-identity to be compatible with SDK that needs msrestazure or azure.common.credentials
 # Need msrest >= 0.6.0
 # See also https://pypi.org/project/azure-identity/
