@@ -16,7 +16,7 @@ from azure.identity import DefaultAzureCredential
 
 class AzureIdentityCredentialWrapper(BasicTokenAuthentication):
     def __init__(self, credential=None, resource_id="https://management.azure.com/.default", **kwargs):
-        """Wrap any azure-identity credential to work with SDK that needs azure.common.credentials/msrestazure.
+        """Wrap any azure-identity credential to work with SDK that needs azure.common.credentials or msrestazure.
 
         Default resource is ARM (syntax of endpoint v2)
 

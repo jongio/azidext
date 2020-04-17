@@ -6,7 +6,7 @@ This repo is a place for us to share ideas and extensions to the Azure Identity 
 
 ## Languages
 
-We currently have included examples for [.NET](#.NET), [Java](#Java) and [Python](#Python).  Please file an issue if you would like examples for other languages as well.
+We currently have included examples for [.NET](#.NET) [Java](#Java), and [Python](#Python).  Please file an issue if you would like examples for other languages as well.
 
 ## Usage
 
@@ -118,10 +118,10 @@ Once you have the `.env` file configured, run the test using JUnit 5 runner.
 
 ### AzureIdentityCredentialWrapper
 
-The `AzureIdentityCredentialWrapper` class provides a simple bridge to use any credential from [azure-identity](https://pypi.org/project/azure-identity/) in SDK
+The `AzureIdentityCredentialWrapper` class provides a simple adapter to use any credential from [azure-identity](https://pypi.org/project/azure-identity/) an SDK
 that accepts credentials from `azure.common.credentials` or `msrestazure.azure_active_directory`.
 
-To use this type, just copy `azure_identity_credential_wrapper.py` file located in `python` directory into your application and make necessary package name updates.
+To use this type, just copy the `azure_identity_credential_wrapper.py` file located in the `python` directory into your application and make necessary package name updates.
 
 After you have created this type, you can reference it in your code as shown below:
 
@@ -134,7 +134,7 @@ from azure.mgmt.resource import ResourceManagementClient
 client = ResourceManagementClient(credentials, subscription_id)
 ```
 
-Above code will provide an instance of `ResourceManagementClient` from which you can access ARM resources. You can use any type of client, like `ComputeManagementClient`, etc.
+The above code will provide an instance of `ResourceManagementClient` from which you can access ARM resources. You can use any type of client, like `ComputeManagementClient`, etc.
 
 #### Testing AzureIdentityCredentialWrapper
 
