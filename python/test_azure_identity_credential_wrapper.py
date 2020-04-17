@@ -27,4 +27,4 @@ def test_list_resource_group():
     from azure.mgmt.resource import ResourceManagementClient
     client = ResourceManagementClient(credentials, subscription_id)
     # Not raising any exception means we were able to do it
-    rg_list = [client.resource_groups.list()]
+    rg_list = list(client.resource_groups.list())
