@@ -3,7 +3,7 @@
 # Licensed under the MIT License.
 # ------------------------------------
 
-# Wrap credentials from azure-identity to be compatible with SDK that needs msrestazure or azure.common.credentials
+# Adapt credentials from azure-identity to be compatible with SDK that needs msrestazure or azure.common.credentials
 # Need msrest >= 0.6.0
 # See also https://pypi.org/project/azure-identity/
 
@@ -14,16 +14,16 @@ from azure.core.pipeline.transport import HttpRequest
 
 from azure.identity import DefaultAzureCredential
 
-class AzureIdentityCredentialWrapper(BasicTokenAuthentication):
+class AzureIdentityCredentialAdapter(BasicTokenAuthentication):
     def __init__(self, credential=None, resource_id="https://management.azure.com/.default", **kwargs):
-        """Wrap any azure-identity credential to work with SDK that needs azure.common.credentials or msrestazure.
+        """Adapt any azure-identity credential to work with SDK that needs azure.common.credentials or msrestazure.
 
         Default resource is ARM (syntax of endpoint v2)
 
         :param credential: Any azure-identity credential (DefaultAzureCredential by default)
         :param str resource_id: The scope to use to get the token (default ARM)
         """
-        super(AzureIdentityCredentialWrapper, self).__init__(None)
+        super(AzureIdentityCredentialAdapter, self).__init__(None)
         if credential is None:
             credential = DefaultAzureCredential()
         self._policy = BearerTokenCredentialPolicy(credential, resource_id, **kwargs)
@@ -31,7 +31,7 @@ class AzureIdentityCredentialWrapper(BasicTokenAuthentication):
     def _make_request(self):
         return PipelineRequest(
             HttpRequest(
-                "AzureIdentityCredentialWrapper",
+                "AzureIdentityCredentialAdapter",
                 "https://fakeurl"
             ),
             PipelineContext(None)
@@ -52,4 +52,4 @@ class AzureIdentityCredentialWrapper(BasicTokenAuthentication):
 
     def signed_session(self, session=None):
         self.set_token()
-        return super(AzureIdentityCredentialWrapper, self).signed_session(session)
+        return super(AzureIdentityCredentialAdapter, self).signed_session(session)

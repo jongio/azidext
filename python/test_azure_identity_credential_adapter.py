@@ -17,12 +17,12 @@ def load_env():
 
 
 def test_list_resource_group():
-    from azure_identity_credential_wrapper import AzureIdentityCredentialWrapper
+    from azure_identity_credential_adapter import AzureIdentityCredentialAdapter
 
     import os
     subscription_id = os.getenv("AZURE_SUBSCRIPTION_ID")
 
-    credentials = AzureIdentityCredentialWrapper()
+    credentials = AzureIdentityCredentialAdapter()
 
     from azure.mgmt.resource import ResourceManagementClient
     client = ResourceManagementClient(credentials, subscription_id)

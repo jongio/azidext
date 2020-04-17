@@ -116,19 +116,19 @@ Once you have the `.env` file configured, run the test using JUnit 5 runner.
 
 ## Python
 
-### AzureIdentityCredentialWrapper
+### AzureIdentityCredentialAdapter
 
-The `AzureIdentityCredentialWrapper` class provides a simple adapter to use any credential from [azure-identity](https://pypi.org/project/azure-identity/) an SDK
+The `AzureIdentityCredentialAdapter` class provides a simple adapter to use any credential from [azure-identity](https://pypi.org/project/azure-identity/) an SDK
 that accepts credentials from `azure.common.credentials` or `msrestazure.azure_active_directory`.
 
-To use this type, just copy the `azure_identity_credential_wrapper.py` file located in the `python` directory into your application and make necessary package name updates.
+To use this type, just copy the `azure_identity_credential_adapter.py` file located in the `python` directory into your application and make necessary package name updates.
 
 After you have created this type, you can reference it in your code as shown below:
 
 ```python
 # Example for azure-mgmt-resource client
-from azure_identity_credential_wrapper import AzureIdentityCredentialWrapper
-credentials = AzureIdentityCredentialWrapper()
+from azure_identity_credential_adapter import AzureIdentityCredentialAdapter
+credentials = AzureIdentityCredentialAdapter()
 
 from azure.mgmt.resource import ResourceManagementClient
 client = ResourceManagementClient(credentials, subscription_id)
@@ -136,7 +136,7 @@ client = ResourceManagementClient(credentials, subscription_id)
 
 The above code will provide an instance of `ResourceManagementClient` from which you can access ARM resources. You can use any type of client, like `ComputeManagementClient`, etc.
 
-#### Testing AzureIdentityCredentialWrapper
+#### Testing AzureIdentityCredentialAdapter
 
 This repository has a test that list the resource groups in a given subscription.
 
