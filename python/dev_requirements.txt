@@ -1,0 +1,9 @@
+# Installed by customer in real world part of their app. Any version works
+azure-identity
+
+# Test specific to ARM calls we want to do
+azure-mgmt-resource
+
+# Test infra
+pytest
+python-dotenv

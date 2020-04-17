@@ -6,7 +6,7 @@ This repo is a place for us to share ideas and extensions to the Azure Identity 
 
 ## Languages
 
-We currently have included examples for [.NET](#.NET) and [Java](#Java).  Please file an issue if you would like examples for other languages as well.
+We currently have included examples for [.NET](#.NET) [Java](#Java), and [Python](#Python).  Please file an issue if you would like examples for other languages as well.
 
 ## Usage
 
@@ -114,4 +114,59 @@ To run `DefaultAzureCredentailAdapterTest`, ensure you have `.env` file created 
 
 Once you have the `.env` file configured, run the test using JUnit 5 runner.
 
+## Python
+
+### AzureIdentityCredentialAdapter
+
+The `AzureIdentityCredentialAdapter` class provides a simple adapter to use any credential from [azure-identity](https://pypi.org/project/azure-identity/) with any SDK
+that accepts credentials from `azure.common.credentials` or `msrestazure.azure_active_directory`.
+
+To use this type, just copy the `azure_identity_credential_adapter.py` file located in the `python` directory into your application and make necessary package name updates.
+
+After you have created this type, you can reference it in your code as shown below:
+
+```python
+# Example for azure-mgmt-resource client
+from azure_identity_credential_adapter import AzureIdentityCredentialAdapter
+credentials = AzureIdentityCredentialAdapter()
+
+from azure.mgmt.resource import ResourceManagementClient
+client = ResourceManagementClient(credentials, subscription_id)
+```
+
+The above code will provide an instance of `ResourceManagementClient` from which you can access ARM resources. You can use any type of client, like `ComputeManagementClient`, etc.
+
+#### Testing AzureIdentityCredentialAdapter
+
+This repository has a test that list the resource groups in a given subscription.
+
+To run this test, ensure you have `.env` file created and accessible from the root of your repo. Your `.env` file should have the following properties set:
+
+- AZURE_SUBSCRIPTION_ID
+- AZURE_TENANT_ID
+- AZURE_CLIENT_ID
+- AZURE_CLIENT_SECRET
+
+General recommendation for Python development is to use a Virtual Environment. For more information, see https://docs.python.org/3/tutorial/venv.html
+
+Install and initialize the virtual environment with the "venv" module on Python 3 (you must install [virtualenv](https://pypi.python.org/pypi/virtualenv) for Python 2.7):
+
+```
+python -m venv venv # Might be "python3" or "py -3.6" depending on your Python installation
+source venv/bin/activate      # Linux shell (Bash, ZSH, etc.) only
+./venv/scripts/activate       # PowerShell only
+./venv/scripts/activate.bat   # Windows CMD only
+```
+
+Install the test dependencies using pip
+
+```
+pip install -r python\dev_requirements.txt
+```
+
+Once you have the `.env` file configured and the venv loaded, run the tests simply calling `pytest`
+
+
 More to come soon.  Please file a GitHub issue with any questions/suggestions.
+
+
