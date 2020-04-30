@@ -1,6 +1,7 @@
 import assert from "assert";
 import { KeyVaultManagementClient } from "@azure/arm-keyvault";
-import { DefaultAzureCredentialAdapter } from "./DefaultAzureCredentialAdapter";
+import { DefaultAzureCredentialAdapter } from "./defaultAzureCredentialAdapter";
+
 const subscriptionId = "AZUER_SUBSCRIPTION_ID";
 
 describe("DefaultAzureCredentialAdapter", function() {
