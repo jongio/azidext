@@ -34,7 +34,7 @@
     <dependency>
       <groupId>io.github.cdimascio</groupId>
       <artifactId>java-dotenv</artifactId>
-      <version>5.1.3</version>
+      <version>5.2.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
