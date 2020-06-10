@@ -6,7 +6,7 @@ This repo is a place for us to share ideas and extensions to the Azure Identity 
 
 ## Languages
 
-We currently have included examples for [.NET](#.NET) [Java](#Java), and [Python](#Python).  Please file an issue if you would like examples for other languages as well.
+We currently have included examples for [.NET](#.NET), [Java](#Java), [Js](#Js), and [Python](#Python).  Please file an issue if you would like examples for other languages as well.
 
 ## Usage
 
@@ -113,6 +113,48 @@ To run `DefaultAzureCredentailAdapterTest`, ensure you have `.env` file created 
 - AZURE_RESOURCE_GROUP
 
 Once you have the `.env` file configured, run the test using JUnit 5 runner.
+
+## Js
+
+### DefaultAzureCredentialAdapter.ts
+
+The `DefaultAzureCredentialAdapter` class provides a simple bridge to use `DefaultAzureCredential` from `@azure/` names in `azure-` SDKs. This is a convenient mechanism to authenticate all fluent Azure Management Resources and a some data plane SDKs that use `ServiceClientCredential` family of credentials.
+
+To use this type, just copy `DefaultAzureCredentialAdapter.ts`, `package.json`, and `tsconfig.json` file located in `js`directory into your application and install packages in `package.json`.
+
+After you have created this type, you can reference it in your code as shown below:
+
+```js
+# Example for azure-mgmt-resource client
+const cred = new DefaultAzureCredentialAdapter();
+const client = new KeyVaultManagementClient(cred, subscriptionId);
+```
+
+The above code will provide an instance of `KeyVaultManagementClient` from which you can access Key Vault service.
+
+#### Testing DefaultAzureCredentialAdapter
+
+This repository has a test that get exsit keyvault in a given resourcegroup.
+
+To run this test, ensure you have `.env` file created and accessible from your classpath. Your `.env` file should have the following properties set:
+
+- AZURE_SUBSCRIPTION_ID
+- AZURE_RESOURCE_GROUP_NAME
+- AZURE_EXSIT_KEY_VAULT_NAME
+
+Install the test dependencies using npm under the path of `package.json`
+
+```
+npm i
+```
+
+compile ts to js using tsc 
+
+```
+tsc defaultAzureCredentialAdapter.spec.ts
+```
+
+Once you have the `.env` file configured and js compiled, run the test simply calling `mocha  defaultAzureCredentialAdapter.spec.js `.
 
 ## Python
 
