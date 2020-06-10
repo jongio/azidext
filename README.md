@@ -6,7 +6,7 @@ This repo is a place for us to share ideas and extensions to the Azure Identity 
 
 ## Languages
 
-We currently have included examples for [.NET](#.NET), [Java](#Java), [Js](#Js), and [Python](#Python).  Please file an issue if you would like examples for other languages as well.
+We currently have included examples for [.NET](#.NET), [Java](#Java), [TypeScript](#TypeScript), and [Python](#Python).  Please file an issue if you would like examples for other languages as well.
 
 ## Usage
 
