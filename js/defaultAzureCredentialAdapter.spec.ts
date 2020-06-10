@@ -4,11 +4,9 @@ import { isNode } from "@azure/core-http";
 import { KeyVaultManagementClient } from "@azure/arm-keyvault";
 import { DefaultAzureCredentialAdapter } from "./defaultAzureCredentialAdapter";
 
-if (isNode) {
-  dotenv.config();
-}
+dotenv.config();
 
-const subscriptionId = process.env.SUBSCRIPTION_ID;
+const subscriptionId = process.env.AZURE_SUBSCRIPTION_ID;
 
 describe("DefaultAzureCredentialAdapter", function() {
   it("get exsit key vault ", async () => {

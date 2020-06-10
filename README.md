@@ -118,7 +118,7 @@ Once you have the `.env` file configured, run the test using JUnit 5 runner.
 
 ### DefaultAzureCredentialAdapter.ts
 
-The `DefaultAzureCredentialAdapter` class provides a simple bridge to use `DefaultAzureCredential` from `@azure/` names in `azure-` SDKs. This is a convenient mechanism to authenticate all fluent Azure Management Resources and a some data plane SDKs that use `ServiceClientCredential` family of credentials.
+The `DefaultAzureCredentialAdapter` class provides a simple bridge to use `DefaultAzureCredential` from `@azure/` package name in `azure-` SDKs. This is a convenient mechanism to authenticate all fluent Azure Management Resources and a some data plane SDKs that use `ServiceClientCredential` family of credentials.
 
 To use this type, just copy `DefaultAzureCredentialAdapter.ts`, `package.json`, and `tsconfig.json` file located in `js`directory into your application and install packages in `package.json`.
 
