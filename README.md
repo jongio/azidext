@@ -124,8 +124,8 @@ To use this type, just copy `DefaultAzureCredentialAdapter.ts`, `package.json`, 
 
 After you have created this type, you can reference it in your code as shown below:
 
-```js
-# Example for azure-mgmt-resource client
+```TypeScript
+# Example for azure-mgmt-keyvault client
 const cred = new DefaultAzureCredentialAdapter();
 const client = new KeyVaultManagementClient(cred, subscriptionId);
 ```
