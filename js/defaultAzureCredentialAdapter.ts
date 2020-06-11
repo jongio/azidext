@@ -1,5 +1,5 @@
 import { ServiceClientCredentials } from "@azure/ms-rest-js";
-import {  DefaultAzureCredential } from "@azure/identity";
+import { DefaultAzureCredential } from "@azure/identity";
 import { Constants as MSRestConstants, WebResource } from "@azure/ms-rest-js";
 import { TokenResponse } from "@azure/ms-rest-nodeauth/dist/lib/credentials/tokenClientCredentials";
 

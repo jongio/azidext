@@ -120,7 +120,7 @@ Once you have the `.env` file configured, run the test using JUnit 5 runner.
 
 The `DefaultAzureCredentialAdapter` class provides a simple bridge to use `DefaultAzureCredential` from `@azure/` package name in `azure-` SDKs. 
 
-To use this type, just copy `DefaultAzureCredentialAdapter.ts`, `package.json`, and `tsconfig.json` file located in `js`directory into your application and install packages in `package.json`.
+To use this type, just copy `DefaultAzureCredentialAdapter.ts`, `package.json`, and `tsconfig.json` file located in `js` directory into your application and install packages in `package.json`.
 
 After you have created this type, you can reference it in your code as shown below:
 
@@ -130,13 +130,13 @@ const cred = new DefaultAzureCredentialAdapter();
 const client = new KeyVaultManagementClient(cred, subscriptionId);
 ```
 
-The above code will provide an instance of `KeyVaultManagementClient` from which you can access Key Vault service.
+The above code will provide an instance of `KeyVaultManagementClient` from which you can access the Key Vault service..
 
 #### Testing DefaultAzureCredentialAdapter
 
-This repository has a test that get exsit keyvault in a given resourcegroup.
+This repository has a test that gets an existing Key Vault in a given resource group.
 
-To run this test, ensure you have `.env` file created and accessible from your classpath. Your `.env` file should have the following properties set:
+To run this test, ensure you have `.env` file created and accessible from the root of your repo. Your `.env` file should have the following properties set:
 
 - AZURE_SUBSCRIPTION_ID
 - AZURE_RESOURCE_GROUP_NAME
