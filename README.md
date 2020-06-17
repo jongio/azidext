@@ -139,8 +139,8 @@ This repository has a test that gets an existing Key Vault in a given resource g
 To run this test, ensure you have `.env` file created and accessible from the root of your repo. Your `.env` file should have the following properties set:
 
 - AZURE_SUBSCRIPTION_ID
-- AZURE_RESOURCE_GROUP_NAME
-- AZURE_EXIST_KEY_VAULT_NAME
+- AZURE_RESOURCE_GROUP
+- AZURE_KEY_VAULT_NAME
 
 Install the test dependencies using npm under the path of `package.json`
 
