@@ -1,6 +1,5 @@
 import assert from "assert";
 import * as dotenv from "dotenv";
-import { isNode } from "@azure/core-http";
 import { KeyVaultManagementClient } from "@azure/arm-keyvault";
 import { DefaultAzureCredentialAdapter } from "./defaultAzureCredentialAdapter";
 

@@ -130,7 +130,7 @@ const cred = new DefaultAzureCredentialAdapter();
 const client = new KeyVaultManagementClient(cred, subscriptionId);
 ```
 
-The above code will provide an instance of `KeyVaultManagementClient` from which you can access the Key Vault service..
+The above code will instantiate an Azure.Identity compatible TokenCredential object based on DefaultAzureCredential and pass that to the KeyVaultManagement client instance.
 
 #### Testing DefaultAzureCredentialAdapter
 
