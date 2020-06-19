@@ -27,7 +27,7 @@
     <dependency>
       <groupId>com.microsoft.azure</groupId>
       <artifactId>azure</artifactId>
-      <version>1.30.0</version>
+      <version>1.35.0</version>
     </dependency>
 
     <!-- Test dependencies -->
