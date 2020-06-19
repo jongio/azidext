@@ -118,21 +118,21 @@ Once you have the `.env` file configured, run the test using JUnit 5 runner.
 
 ### AzureIdentityCredentialAdapter.ts
 
-The `AzureIdentityCredentialAdapter` class provides a simple bridge to use `DefaultAzureCredential` from `@azure/` package name in `azure-` SDKs. 
+The `AzureIdentityCredentialAdapter` class provides a simple bridge to use `AzureCredential` from `@azure/` package name in `azure-` SDKs. 
 
-To use this type, just copy `DefaultAzureCredentialAdapter.ts`, `package.json`, and `tsconfig.json` file located in `js` directory into your application and install packages in `package.json`.
+To use this type, just copy `AzureCredentialAdapter.ts`, `package.json`, and `tsconfig.json` file located in `js` directory into your application and install packages in `package.json`.
 
 After you have created this type, you can reference it in your code as shown below:
 
 ```TypeScript
 # Example for azure-mgmt-keyvault client
-const cred = new DefaultAzureCredentialAdapter();
+const cred = new AzureCredentialAdapter();
 const client = new KeyVaultManagementClient(cred, subscriptionId);
 ```
 
 The above code will instantiate an Azure.Identity compatible TokenCredential object based on DefaultAzureCredential and pass that to the KeyVaultManagement client instance.
 
-#### Testing DefaultAzureCredentialAdapter
+#### Testing azureCredentialAdapter
 
 This repository has a test that gets an existing Key Vault in a given resource group.
 
@@ -151,10 +151,10 @@ npm i
 compile ts to js using tsc 
 
 ```
-tsc defaultAzureCredentialAdapter.spec.ts
+tsc azureCredentialAdapter.spec.ts
 ```
 
-Once you have the `.env` file configured and js compiled, run the test simply calling `mocha  defaultAzureCredentialAdapter.spec.js `.
+Once you have the `.env` file configured and js compiled, run the test simply calling `mocha  azureCredentialAdapter.spec.js `.
 
 ## Python
 
