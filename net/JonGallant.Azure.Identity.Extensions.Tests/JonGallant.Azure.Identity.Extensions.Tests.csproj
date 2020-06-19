@@ -8,17 +8,18 @@
 
   <ItemGroup>
     <PackageReference Include="DotNetEnv" Version="1.4.0" />
-    <PackageReference Include="Microsoft.Azure.Management.ApplicationInsights" Version="0.2.0-preview" />
+    <PackageReference Include="Microsoft.Azure.Management.ApplicationInsights" Version="0.3.0-preview" />
     <PackageReference Include="Microsoft.Azure.Management.Authorization" Version="2.11.0-preview" />
-    <PackageReference Include="Microsoft.Azure.Management.CosmosDB" Version="1.0.1" />
-    <PackageReference Include="Microsoft.Azure.Management.Fluent" Version="1.30.0" />
-    <PackageReference Include="Microsoft.Azure.Management.ResourceManager" Version="3.0.0-preview" />
-    <PackageReference Include="Microsoft.Azure.Management.ResourceManager.Fluent" Version="1.30.0" />
-    <PackageReference Include="Microsoft.Azure.Management.Storage" Version="14.3.0" />
-    <PackageReference Include="Microsoft.Azure.ServiceBus" Version="4.1.1" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
-    <PackageReference Include="xunit" Version="2.4.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+    <PackageReference Include="Microsoft.Azure.Management.CosmosDB" Version="1.2.0" />
+    <PackageReference Include="Microsoft.Azure.Management.Fluent" Version="1.34.0" />
+    <PackageReference Include="Microsoft.Azure.Management.ResourceManager" Version="3.7.2-preview" />
+    <PackageReference Include="Microsoft.Azure.Management.ResourceManager.Fluent" Version="1.34.0" />
+    <PackageReference Include="Microsoft.Azure.Management.ServiceBus" Version="2.1.0" />
+    <PackageReference Include="Microsoft.Azure.Management.Storage" Version="17.0.0" />
+    <PackageReference Include="Microsoft.Azure.ServiceBus" Version="4.1.3" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.0-preview-20200519-01" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.2" />
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
   </ItemGroup>
 

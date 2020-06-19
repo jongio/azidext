@@ -4,3 +4,7 @@
 *.project
 *.prefs
 .vscode/*
+terraform.
+.terraform
+terraform.tfstate*
+tf.plan

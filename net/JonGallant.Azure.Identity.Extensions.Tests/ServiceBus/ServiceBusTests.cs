@@ -1,4 +1,5 @@
 using DotNetEnv;
+using Microsoft.Azure.Management.ServiceBus;
 using Microsoft.Azure.ServiceBus;
 using System;
 using System.Text;
@@ -15,9 +16,12 @@ namespace JonGallant.Azure.Identity.Extensions.Tests.ServiceBus
         {
             Env.Load("../../../../../.env");
 
-            var client = new TopicClient(Environment.GetEnvironmentVariable("AZURE_SERVICE_BUS_ENDPOINT"),
-                                         Environment.GetEnvironmentVariable("AZURE_SERVICE_BUS_ENTITY_PATH"),
-                                         new DefaultAzureServiceBusCredential());
+            var baseName = Environment.GetEnvironmentVariable("AZURE_BASE_NAME");
+            var sbEndpoint = string.Format("{0}sbns.servicebus.windows.net", baseName);
+
+            var client = new TopicClient(sbEndpoint,
+                                         "topic1",
+                                         new AzureIdentityServiceBusCredentialAdapter());
 
             var messageText = "Hello World " + Guid.NewGuid().ToString("n").Substring(0, 8);
 
@@ -25,10 +29,10 @@ namespace JonGallant.Azure.Identity.Extensions.Tests.ServiceBus
 
             await client.CloseAsync();
 
-            var subscription = new SubscriptionClient(Environment.GetEnvironmentVariable("AZURE_SERVICE_BUS_ENDPOINT"),
-                                         Environment.GetEnvironmentVariable("AZURE_SERVICE_BUS_ENTITY_PATH"),
-                                         Environment.GetEnvironmentVariable("AZURE_SERVICE_BUS_SUBSCRIPTION_NAME"),
-                                         new DefaultAzureServiceBusCredential());
+            var subscription = new SubscriptionClient(sbEndpoint,
+                                         "topic1",
+                                         "sub1",
+                                         new AzureIdentityServiceBusCredentialAdapter());
 
             var messageHandlerOptions = new MessageHandlerOptions((ExceptionReceivedEventArgs exceptionReceivedEventArgs) =>
             {

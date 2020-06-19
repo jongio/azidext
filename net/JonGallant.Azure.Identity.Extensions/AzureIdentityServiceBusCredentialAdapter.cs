@@ -1,22 +1,25 @@
-﻿using Azure.Identity;
-using Microsoft.Azure.ServiceBus;
-using Microsoft.Azure.ServiceBus.Primitives;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Azure.ServiceBus;
+using Microsoft.Azure.ServiceBus.Primitives;
+using Azure.Core;
+using Azure.Identity;
+
 
 namespace JonGallant.Azure.Identity.Extensions
 {
-    public class DefaultAzureServiceBusCredential : ITokenProvider
+    public class AzureIdentityServiceBusCredentialAdapter : ITokenProvider
     {
-        private DefaultAzureCredential defaultAzureCredential;
+        private TokenCredential tokenCredential;
 
-        public DefaultAzureServiceBusCredential() : this(new DefaultAzureCredential())
+        public AzureIdentityServiceBusCredentialAdapter() : this(new DefaultAzureCredential())
         {
         }
-        public DefaultAzureServiceBusCredential(DefaultAzureCredential defaultAzureCredential)
+
+        public AzureIdentityServiceBusCredentialAdapter(TokenCredential tokenCredential)
         {
-            this.defaultAzureCredential = defaultAzureCredential;
+            this.tokenCredential = tokenCredential;
         }
 
         public async Task<SecurityToken> GetTokenAsync(string appliesTo, TimeSpan timeout)
@@ -24,8 +27,8 @@ namespace JonGallant.Azure.Identity.Extensions
             var cts = new CancellationTokenSource();
             cts.CancelAfter((int)timeout.TotalMilliseconds);
 
-            var token = await new DefaultAzureCredentialTokenProvider(
-                this.defaultAzureCredential, 
+            var token = await new AzureIdentityTokenProvider(
+                this.tokenCredential,
                 new string[] { "https://servicebus.azure.net/.default" })
                 .GetTokenAsync(cts.Token);
 

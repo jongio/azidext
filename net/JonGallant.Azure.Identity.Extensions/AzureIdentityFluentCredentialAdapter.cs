@@ -1,9 +1,4 @@
-﻿using Azure.Identity;
-using Microsoft.Azure.Management.ResourceManager.Fluent;
-using Microsoft.Azure.Management.ResourceManager.Fluent.Authentication;
-using Microsoft.Rest;
-using Microsoft.Rest.Azure.Authentication;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,22 +6,29 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Azure.Management.ResourceManager.Fluent;
+using Microsoft.Azure.Management.ResourceManager.Fluent.Authentication;
+using Microsoft.Rest;
+using Microsoft.Rest.Azure.Authentication;
+using Azure.Core;
+using Azure.Identity;
+
 
 namespace JonGallant.Azure.Identity.Extensions
 {
-    public class DefaultAzureFluentCredential : AzureCredentials
+    public class AzureIdentityFluentCredentialAdapter : AzureCredentials
     {
         private IDictionary<Uri, ServiceClientCredentials> credentialsCache = new ConcurrentDictionary<Uri, ServiceClientCredentials>();
-        private DefaultAzureCredential defaultAzureCredential;
+        private TokenCredential tokenCredential;
 
-        public DefaultAzureFluentCredential(DefaultAzureCredential defaultAzureCredential, string tenantId, AzureEnvironment environment) : base(default(DeviceCredentialInformation), tenantId, environment)
+        public AzureIdentityFluentCredentialAdapter(TokenCredential tokenCredential, string tenantId, AzureEnvironment environment) : base(default(DeviceCredentialInformation), tenantId, environment)
         {
-            this.defaultAzureCredential = defaultAzureCredential;
+            this.tokenCredential = tokenCredential;
         }
 
-        public DefaultAzureFluentCredential(string tenantId, AzureEnvironment environment) : base(default(DeviceCredentialInformation), tenantId, environment)
+        public AzureIdentityFluentCredentialAdapter(string tenantId, AzureEnvironment environment) : base(default(DeviceCredentialInformation), tenantId, environment)
         {
-            this.defaultAzureCredential = new DefaultAzureCredential();
+            this.tokenCredential = new DefaultAzureCredential();
         }
 
         public async override Task ProcessHttpRequestAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -78,7 +80,7 @@ namespace JonGallant.Azure.Identity.Extensions
 
             if (!credentialsCache.ContainsKey(adSettings.TokenAudience))
             {
-                credentialsCache[adSettings.TokenAudience] = new DefaultAzureMgmtCredential(this.defaultAzureCredential);
+                credentialsCache[adSettings.TokenAudience] = new AzureIdentityCredentialAdapter(this.tokenCredential);
             }
             await credentialsCache[adSettings.TokenAudience].ProcessHttpRequestAsync(request, cancellationToken);
         }

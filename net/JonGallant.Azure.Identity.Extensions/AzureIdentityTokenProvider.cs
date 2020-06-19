@@ -1,35 +1,27 @@
-using Azure.Core;
-using Azure.Identity;
-using Microsoft.Rest;
 using System;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Rest;
+using Azure.Core;
+using Azure.Identity;
+
 
 namespace JonGallant.Azure.Identity.Extensions
 {
-    public class DefaultAzureCredentialTokenProvider : ITokenProvider
-
+    public class AzureIdentityTokenProvider : ITokenProvider
     {
         private AccessToken? accessToken;
         private static readonly TimeSpan ExpirationThreshold = TimeSpan.FromMinutes(5);
         private string[] scopes;
 
-        private DefaultAzureCredential defaultAzureCredential;
+        private TokenCredential tokenCredential;
 
-        public DefaultAzureCredentialTokenProvider(string[] scopes = null) : this(new DefaultAzureCredential(), scopes)
+        public AzureIdentityTokenProvider(string[] scopes = null) : this(new DefaultAzureCredential(), scopes)
         {
         }
 
-        public DefaultAzureCredentialTokenProvider(bool includeInteractiveCredentials = false, string[] scopes = null) : this(new DefaultAzureCredential(includeInteractiveCredentials), scopes)
-        {
-        }
-
-        public DefaultAzureCredentialTokenProvider(DefaultAzureCredentialOptions options, string[] scopes = null) : this(new DefaultAzureCredential(options), scopes)
-        {
-        }
-
-        public DefaultAzureCredentialTokenProvider(DefaultAzureCredential defaultAzureCredential, string[] scopes = null)
+        public AzureIdentityTokenProvider(TokenCredential tokenCredential, string[] scopes = null)
         {
             if (scopes == null || scopes.Length == 0)
             {
@@ -37,7 +29,7 @@ namespace JonGallant.Azure.Identity.Extensions
             }
 
             this.scopes = scopes;
-            this.defaultAzureCredential = defaultAzureCredential;
+            this.tokenCredential = tokenCredential;
         }
 
         public virtual async Task<AuthenticationHeaderValue> GetAuthenticationHeaderAsync(CancellationToken cancellationToken)
@@ -50,7 +42,7 @@ namespace JonGallant.Azure.Identity.Extensions
         {
             if (!this.accessToken.HasValue || AccessTokenExpired)
             {
-                this.accessToken = await this.defaultAzureCredential.GetTokenAsync(new TokenRequestContext(this.scopes), cancellationToken).ConfigureAwait(false);
+                this.accessToken = await this.tokenCredential.GetTokenAsync(new TokenRequestContext(this.scopes), cancellationToken).ConfigureAwait(false);
             }
 
             return this.accessToken.Value;

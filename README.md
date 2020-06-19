@@ -17,38 +17,38 @@ The classes contained in this repo are only meant to be a temporary stopgap betw
 
 ## .NET
 
-### DefaultAzureMgmtCredential.cs
+### AzureIdentityCredentialAdapter.cs
 
-The `DefaultAzureMgmtCredential` class allows you to use all the goodness of `Azure.Identity.DefaultAzureCredential` in the Azure Management libraries. You can use it in place of `ServiceClientCredential` when calling your Azure Management APIs. The Azure Management libraries will be updated to support Azure Identity and Azure Core in early 2020, so this should just be used a a stopgap between now and then.
+The `AzureIdentityCredentialAdapter` class allows you to use all the goodness of `Azure.Identity.DefaultAzureCredential` in the Azure Management libraries. You can use it in place of `ServiceClientCredential` when calling your Azure Management APIs. The Azure Management libraries will be updated to support Azure Identity and Azure Core in early 2020, so this should just be used a a stopgap between now and then.
 
 ```cmd
 dotnet add package Microsoft.Azure.Management.ApplicationInsights --version 0.2.0-preview
 ```
 
-Use DefaultAzureMgmtCredential in place of ServiceClientCredential:
+Use `AzureIdentityCredentialAdapter` in place of `ServiceClientCredential`:
 
 ```csharp
 using JonGallant.Azure.Identity.Extensions;
 using Microsoft.Azure.Management.ApplicationInsights.Management;
 
-var appInsightsClient = new ApplicationInsightsManagementClient(new DefaultAzureMgmtCredential());
+var appInsightsClient = new ApplicationInsightsManagementClient(new AzureIdentityCredentialAdapter());
 ```
 
-### DefaultAzureFluentCredential.cs
+### AzureIdentityFluentCredentialAdapter.cs
 
-The `DefaultAzureFluentCredential` class allows you to use all the goodness of `Azure.Identity.DefaultAzureCredential` in the [Azure Management **Fluent** libraries](https://github.com/Azure/azure-libraries-for-net). You can use it in place of `AzureCredentials` when calling your Azure Management Fluent APIs.
+The `AzureIdentityFluentCredentialAdapter` class allows you to use all the goodness of `Azure.Identity.DefaultAzureCredential` in the [Azure Management **Fluent** libraries](https://github.com/Azure/azure-libraries-for-net). You can use it in place of `AzureCredentials` when calling your Azure Management Fluent APIs.
 
 ```cmd
 dotnet add package Microsoft.Azure.Management.Fluent --version 1.30.0
 ```
 
-Use `DefaultAzureFluentCredential` in place of `AzureCredentials`:
+Use `AzureIdentityFluentCredentialAdapter` in place of `AzureCredentials`:
 
 ```csharp
 using JonGallant.Azure.Identity.Extensions;
 using Microsoft.Azure.Management.ResourceManager.Fluent;
 
-var creds = new DefaultAzureFluentCredential(tenantId, AzureEnvironment.AzureGlobalCloud);
+var creds = new AzureIdentityFluentCredentialAdapter(tenantId, AzureEnvironment.AzureGlobalCloud);
 
 var resourceGroup = Azure.Authenticate(creds)
                         .WithSubscription(subId)
@@ -58,9 +58,9 @@ var resourceGroup = Azure.Authenticate(creds)
                         .Create();
 ```
 
-### DefaultAzureServiceBusCredential.cs
+### AzureIdentityServiceBusCredentialAdapter.cs
 
-The `DefaultAzureServiceBusCredential` class allows you to use all of the goodness of `Azure.Identity.DefaultAzureCredential` with the Service Bus SDKs.  Service Bus will officially be supported by the new SDKs soon, this is a stopgap that enables you to use the same credential flow throughout your application.
+The `AzureIdentityServiceBusCredentialAdapter` class allows you to use all of the goodness of `Azure.Identity.DefaultAzureCredential` with the Service Bus SDKs.  Service Bus will officially be supported by the new SDKs soon, this is a stopgap that enables you to use the same credential flow throughout your application.
 
 ```cmd
 dotnet add package Microsoft.Azure.ServiceBus --version 4.1.1
@@ -70,8 +70,13 @@ dotnet add package Microsoft.Azure.ServiceBus --version 4.1.1
 using JonGallant.Azure.Identity.Extensions;
 using Microsoft.Azure.ServiceBus;
 
-var client = new TopicClient("sbendpoint", "entitypath", new DefaultAzureServiceBusCredential());
+var client = new TopicClient("sbendpoint", "entitypath", new AzureIdentityServiceBusCredentialAdapter());
 ```
+
+## Testing .NET
+
+1. Setup test resources with "Test Setup" section below.
+2. Open the .Tests project and run dotnet build.
 
 ## Java
 
@@ -102,7 +107,7 @@ Azure azure = Azure.authenticate(new DefaultAzureCredentialAdapter(tenantId)).wi
 
 Above code will provide an instance of `Azure` fluent type from which you can access all Azure Resource Managers.
 
-#### Testing DefaultAzureCredentialAdapter
+#### Testing AzureIdentityCredentialAdapter
 
 This repository has a test class called `DefaultAzureCredentailAdapterTest` that tests creation of a storage account, listing all storage accounts in a resource group to validate successful creation, then deleting the account created earlier in this test and listing again to ensure successful deletion.
 
@@ -170,3 +175,30 @@ Once you have the `.env` file configured and the venv loaded, run the tests simp
 More to come soon.  Please file a GitHub issue with any questions/suggestions.
 
 
+## Test Setup
+
+1. Create a service principal with `az ad sp create-for-rbac`
+2. Rename .env.tmp to .env and update the the following values from the SP
+
+    `AZURE_CLIENT_ID=appId`
+    `AZURE_CLIENT_SECRET=password`
+    `AZURE_TENANT_ID=tenantId`
+
+3. Run `az account show` to get your subscription id and update the .env file with that.
+
+    `AZURE_SUBSCRIPTION_ID=`
+
+4. Deploy the Service Bus resources with terraform files in iac/terraform
+
+    - Open variables.tf and change the basename value to something unique.
+    - Run the following commands:
+        - `terraform init`
+        - `terraform plan --out tf.plan`
+        - `terraform apply tf.plan`
+
+5. Update AZURE_BASE_NAME in .env file to the base name you used for terraform deployment
+
+    - AZURE_BASE_NAME=azidexttest1
+
+
+6. See each language "Test" section above for instructions on how to run the tests.

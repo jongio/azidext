@@ -15,10 +15,10 @@ namespace JonGallant.Azure.Identity.Extensions.Tests.Mgmt
             Env.Load("../../../../../.env");
 
 
-            var client = new CosmosDBManagementClient(new DefaultAzureMgmtCredential());
+            var client = new CosmosDBManagementClient(new AzureIdentityCredentialAdapter());
             client.SubscriptionId = Environment.GetEnvironmentVariable("AZURE_SUBSCRIPTION_ID");
 
-            var name = Environment.GetEnvironmentVariable("COSMOSDB_NAME") + Guid.NewGuid().ToString("n").Substring(0, 8);
+            var name = "cosmos" + Guid.NewGuid().ToString("n").Substring(0, 8);
 
             var results = await client.DatabaseAccounts.CheckNameExistsAsync(name);
             
