@@ -3,7 +3,7 @@ using Microsoft.Azure.Management.Storage;
 using System;
 using Xunit;
 
-namespace JonGallant.Azure.Identity.Extensions.Tests.Mgmt
+namespace Azure.Identity.Extensions.Tests.Mgmt
 {
     public class StorageTests
     {

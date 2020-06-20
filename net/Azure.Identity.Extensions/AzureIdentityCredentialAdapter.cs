@@ -1,7 +1,7 @@
 ﻿using Microsoft.Rest;
 using Azure.Core;
 
-namespace JonGallant.Azure.Identity.Extensions
+namespace Azure.Identity.Extensions
 {
     public class AzureIdentityCredentialAdapter : TokenCredentials
     {

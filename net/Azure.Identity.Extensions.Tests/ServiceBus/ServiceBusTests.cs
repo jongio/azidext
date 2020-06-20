@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace JonGallant.Azure.Identity.Extensions.Tests.ServiceBus
+namespace Azure.Identity.Extensions.Tests.ServiceBus
 {
     public class ServiceBusTests
     {

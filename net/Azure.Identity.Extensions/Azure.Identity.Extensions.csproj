@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <PackageId>JonGallant.Azure.Identity.Extensions</PackageId>
+    <PackageId>Azure.Identity.Extensions</PackageId>
     <Description>A library that extends the base Azure.Identity functionality.</Description>
     <Version>0.0.5-preview</Version>
     <Authors>Jon Gallant</Authors>

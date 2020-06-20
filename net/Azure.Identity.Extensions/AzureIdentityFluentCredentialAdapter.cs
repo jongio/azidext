@@ -14,7 +14,7 @@ using Azure.Core;
 using Azure.Identity;
 
 
-namespace JonGallant.Azure.Identity.Extensions
+namespace Azure.Identity.Extensions
 {
     public class AzureIdentityFluentCredentialAdapter : AzureCredentials
     {

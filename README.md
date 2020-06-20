@@ -28,7 +28,7 @@ dotnet add package Microsoft.Azure.Management.ApplicationInsights --version 0.2.
 Use `AzureIdentityCredentialAdapter` in place of `ServiceClientCredential`:
 
 ```csharp
-using JonGallant.Azure.Identity.Extensions;
+using Azure.Identity.Extensions;
 using Microsoft.Azure.Management.ApplicationInsights.Management;
 
 var appInsightsClient = new ApplicationInsightsManagementClient(new AzureIdentityCredentialAdapter());
@@ -45,7 +45,7 @@ dotnet add package Microsoft.Azure.Management.Fluent --version 1.30.0
 Use `AzureIdentityFluentCredentialAdapter` in place of `AzureCredentials`:
 
 ```csharp
-using JonGallant.Azure.Identity.Extensions;
+using Azure.Identity.Extensions;
 using Microsoft.Azure.Management.ResourceManager.Fluent;
 
 var creds = new AzureIdentityFluentCredentialAdapter(tenantId, AzureEnvironment.AzureGlobalCloud);
@@ -67,7 +67,7 @@ dotnet add package Microsoft.Azure.ServiceBus --version 4.1.1
 ```
 
 ```csharp
-using JonGallant.Azure.Identity.Extensions;
+using Azure.Identity.Extensions;
 using Microsoft.Azure.ServiceBus;
 
 var client = new TopicClient("sbendpoint", "entitypath", new AzureIdentityServiceBusCredentialAdapter());

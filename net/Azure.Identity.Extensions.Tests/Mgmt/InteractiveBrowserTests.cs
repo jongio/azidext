@@ -4,7 +4,7 @@ using System;
 using Xunit;
 using Azure.Identity;
 
-namespace JonGallant.Azure.Identity.Extensions.Tests.Mgmt
+namespace Azure.Identity.Extensions.Tests.Mgmt
 {
     public class InteractiveBrowserTests
     {

@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\JonGallant.Azure.Identity.Extensions\JonGallant.Azure.Identity.Extensions.csproj" />
+    <ProjectReference Include="..\Azure.Identity.Extensions\Azure.Identity.Extensions.csproj" />
   </ItemGroup>
 
 </Project>

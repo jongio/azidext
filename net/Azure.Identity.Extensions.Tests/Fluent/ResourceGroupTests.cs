@@ -1,12 +1,12 @@
 using System;
 using Microsoft.Azure.Management.ResourceManager.Fluent;
 using DotNetEnv;
-using JonGallant.Azure.Identity.Extensions;
+using Azure.Identity.Extensions;
 using Xunit;
 using System.Threading.Tasks;
 using static DotNetEnv.Env;
 
-namespace JonGallant.Azure.Identity.Extensions.Tests.Fluent
+namespace Azure.Identity.Extensions.Tests.Fluent
 {
     public class ResourceGroupTests
     {

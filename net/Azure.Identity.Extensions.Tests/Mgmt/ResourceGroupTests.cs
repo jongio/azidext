@@ -4,7 +4,7 @@ using Microsoft.Azure.Management.ResourceManager.Models;
 using System;
 using Xunit;
 
-namespace JonGallant.Azure.Identity.Extensions.Tests.Mgmt
+namespace Azure.Identity.Extensions.Tests.Mgmt
 {
     public class ResourceGroupTests
     {
