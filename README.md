@@ -118,29 +118,31 @@ Once you have the `.env` file configured, run the test using JUnit 5 runner.
 
 ### AzureIdentityCredentialAdapter.ts
 
-The `AzureIdentityCredentialAdapter` class provides a simple bridge to use `AzureCredential` from `@azure/` package name in `azure-` SDKs. 
+The `AzureIdentityCredentialAdapter` class provides a simple adapter to use any credential from [@azure/identity](https://www.npmjs.com/package/@azure/identity) with any SDK
+that accepts credentials from packages like `@azure/arm-*` or ``@azure/ms-rest-*`. 
 
-To use this type, just copy `AzureCredentialAdapter.ts`, `package.json`, and `tsconfig.json` file located in `js` directory into your application and install packages in `package.json`.
+To use this type, just copy `AzureIdentityCredentialAdapter.ts`, `package.json`, and `tsconfig.json` file located in `js` directory into your application and install packages in `package.json`.
 
 After you have created this type, you can reference it in your code as shown below:
 
 ```TypeScript
-# Example for azure-mgmt-keyvault client
-const cred = new AzureCredentialAdapter();
-const client = new KeyVaultManagementClient(cred, subscriptionId);
+# Example for azure-mgmt-resource client
+const cred = new AzureIdentityCredentialAdapter();
+const client = new ResourceManagementClient(cred, subscriptionId);
 ```
 
 The above code will instantiate an Azure.Identity compatible TokenCredential object based on DefaultAzureCredential and pass that to the KeyVaultManagement client instance.
 
-#### Testing azureCredentialAdapter
+#### Testing AzureIdentityCredentialAdapter
 
 This repository has a test that gets an existing Key Vault in a given resource group.
 
 To run this test, ensure you have `.env` file created and accessible from the root of your repo. Your `.env` file should have the following properties set:
 
 - AZURE_SUBSCRIPTION_ID
-- AZURE_RESOURCE_GROUP
-- AZURE_KEY_VAULT_NAME
+- AZURE_TENANT_ID
+- AZURE_CLIENT_ID
+- AZURE_CLIENT_SECRET
 
 Install the test dependencies using npm under the path of `package.json`
 
@@ -151,10 +153,10 @@ npm i
 compile ts to js using tsc 
 
 ```
-tsc azureCredentialAdapter.spec.ts
+tsc azureIdentityCredentialAdapter.spec.ts --esModuleInterop
 ```
 
-Once you have the `.env` file configured and js compiled, run the test simply calling `mocha  azureCredentialAdapter.spec.js `.
+Once you have the `.env` file configured and js compiled, run the test simply calling `mocha azureIdentityCredentialAdapter.spec.js --timeout 10000`.
 
 ## Python
 
