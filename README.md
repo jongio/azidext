@@ -6,7 +6,7 @@ This repo is a place for us to share ideas and extensions to the Azure Identity 
 
 ## Languages
 
-We currently have included examples for [.NET](#.NET), [Java](#Java), [TypeScript](#TypeScript), and [Python](#Python).  Please file an issue if you would like examples for other languages as well.
+We currently have included examples for [.NET](#.NET), [Java](#Java), [TypeScript](#TypeScript), and [Python](#Python). Please file an issue if you would like examples for other languages as well.
 
 ## Usage
 
@@ -118,7 +118,7 @@ Once you have the `.env` file configured, run the test using JUnit 5 runner.
 
 ### AzureIdentityCredentialAdapter.ts
 
-The `AzureIdentityCredentialAdapter` class provides a simple adapter to use  defaultAzureCredential from [@azure/identity](https://www.npmjs.com/package/@azure/identity) with any SDK
+The `AzureIdentityCredentialAdapter` class provides a simple adapter to use defaultAzureCredential from [@azure/identity](https://www.npmjs.com/package/@azure/identity) with any SDK
 that accepts ServiceClientCredentials from packages like `@azure/arm-*` or `@azure/ms-rest-*`. 
 
 To use this type, just copy `AzureIdentityCredentialAdapter.ts`, `package.json`, and `tsconfig.json` file located in `js` directory into your application and install packages in `package.json`.
@@ -131,7 +131,7 @@ const cred = new AzureIdentityCredentialAdapter();
 const client = new ResourceManagementClient(cred, subscriptionId);
 ```
 
-The above code will instantiate an Azure.Identity compatible TokenCredential object based on DefaultAzureCredential and pass that to the ResourceManagement client instance.
+The above code will instantiate an Azure.Identity compatible TokenCredential object based on DefaultAzureCredential and pass that to the ResourceManagementClient instance.
 
 #### Testing AzureIdentityCredentialAdapter
 
