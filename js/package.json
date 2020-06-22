@@ -1,25 +1,25 @@
 {
-  "name": "defaultazurecredentialadapter",
+  "name": "azureidentitycredentialadapter",
   "version": "1.0.0",
   "description": "1.0.0",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch & nodemon dist",
-    "test": "tsc && mocha dist/*.spec.js",
+    "test": "tsc && mocha dist/*.spec.js --timeout 10000",
     "lint": "eslint src --ext ts",
     "tsc": "tsc",
-    "start": "node dist/defaultAzureCredentialAdapter.js"
+    "start": "node dist/azureIdentityCredentialAdapter.js"
   },
   "dependencies": {
-    "@azure/arm-keyvault": "^1.2.1",
+    "@azure/arm-resources": "^2.1.0",
     "@azure/identity": "^1.0.2",
     "@azure/ms-rest-nodeauth": "^2.0.5",
-    "@types/mocha": "^7.0.2",
-    "dotenv": "^8.2.0",
+    "dotenv": "^8.2.0"
   },
   "devDependencies": {
-    "mocha": "^7.2.0"
+    "mocha": "^7.2.0",
+    "@types/mocha": "^7.0.2"
   },
   "author": "",
   "license": "MIT"

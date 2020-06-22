@@ -144,13 +144,13 @@ To run this test, ensure you have `.env` file created and accessible from the ro
 - AZURE_CLIENT_ID
 - AZURE_CLIENT_SECRET
 
-Install the test dependencies using npm under the path of `package.json`
+Install the test dependencies using npm under the path of `package.json`.
 
 ```
 npm i
 ```
 
-compile ts to js using tsc 
+compile ts to js using tsc. 
 
 ```
 tsc azureIdentityCredentialAdapter.spec.ts --esModuleInterop
