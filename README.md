@@ -118,8 +118,8 @@ Once you have the `.env` file configured, run the test using JUnit 5 runner.
 
 ### AzureIdentityCredentialAdapter.ts
 
-The `AzureIdentityCredentialAdapter` class provides a simple adapter to use any credential from [@azure/identity](https://www.npmjs.com/package/@azure/identity) with any SDK
-that accepts credentials from packages like `@azure/arm-*` or ``@azure/ms-rest-*`. 
+The `AzureIdentityCredentialAdapter` class provides a simple adapter to use  defaultAzureCredential from [@azure/identity](https://www.npmjs.com/package/@azure/identity) with any SDK
+that accepts ServiceClientCredentials from packages like `@azure/arm-*` or `@azure/ms-rest-*`. 
 
 To use this type, just copy `AzureIdentityCredentialAdapter.ts`, `package.json`, and `tsconfig.json` file located in `js` directory into your application and install packages in `package.json`.
 
@@ -131,7 +131,7 @@ const cred = new AzureIdentityCredentialAdapter();
 const client = new ResourceManagementClient(cred, subscriptionId);
 ```
 
-The above code will instantiate an Azure.Identity compatible TokenCredential object based on DefaultAzureCredential and pass that to the KeyVaultManagement client instance.
+The above code will instantiate an Azure.Identity compatible TokenCredential object based on DefaultAzureCredential and pass that to the ResourceManagement client instance.
 
 #### Testing AzureIdentityCredentialAdapter
 
