@@ -116,12 +116,12 @@ Once you have the `.env` file configured, run the test using JUnit 5 runner.
 
 ## TypeScript
 
-### AzureIdentityCredentialAdapter.ts
+### AzureIdentityCredentialAdapter
 
-The `AzureIdentityCredentialAdapter` class provides a simple adapter to use defaultAzureCredential from [@azure/identity](https://www.npmjs.com/package/@azure/identity) with any SDK
+The `AzureIdentityCredentialAdapter` class provides a simple adapter to use DefaultAzureCredential from [@azure/identity](https://www.npmjs.com/package/@azure/identity) with any SDK
 that accepts ServiceClientCredentials from packages like `@azure/arm-*` or `@azure/ms-rest-*`. 
 
-To use this type, just copy `AzureIdentityCredentialAdapter.ts`, `package.json`, and `tsconfig.json` file located in `js` directory into your application and install packages in `package.json`.
+To use this type, just copy `azureIdentityCredentialAdapter.ts`, `package.json`, and `tsconfig.json` file located in `js` directory into your application and install packages in `package.json`.
 
 After you have created this type, you can reference it in your code as shown below:
 
@@ -135,7 +135,7 @@ The above code will instantiate an Azure.Identity compatible TokenCredential obj
 
 #### Testing AzureIdentityCredentialAdapter
 
-This repository has a test that gets an existing Key Vault in a given resource group.
+This repository has a test that creating a resource group in a given subscription.
 
 To run this test, ensure you have `.env` file created and accessible from the root of your repo. Your `.env` file should have the following properties set:
 
