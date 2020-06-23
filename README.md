@@ -135,7 +135,7 @@ The above code will instantiate an Azure.Identity compatible TokenCredential obj
 
 #### Testing AzureIdentityCredentialAdapter
 
-This repository has a test that creating a resource group in a given subscription.
+This repository has a test that creates a resource group in a given subscription.
 
 To run this test, ensure you have `.env` file created and accessible from the root of your repo. Your `.env` file should have the following properties set:
 
