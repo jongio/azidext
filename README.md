@@ -6,7 +6,7 @@ This repo is a place for us to share ideas and extensions to the Azure Identity 
 
 ## Languages
 
-We currently have included examples for [.NET](#.NET) [Java](#Java), and [Python](#Python).  Please file an issue if you would like examples for other languages as well.
+We currently have included examples for [.NET](#.NET), [Java](#Java), [TypeScript](#TypeScript), and [Python](#Python). Please file an issue if you would like examples for other languages as well.
 
 ## Usage
 
@@ -118,6 +118,54 @@ To run `DefaultAzureCredentailAdapterTest`, ensure you have `.env` file created 
 - AZURE_RESOURCE_GROUP
 
 Once you have the `.env` file configured, run the test using JUnit 5 runner.
+
+## TypeScript
+
+### AzureIdentityCredentialAdapter
+
+The `AzureIdentityCredentialAdapter` class provides a simple adapter to use DefaultAzureCredential from [@azure/identity](https://www.npmjs.com/package/@azure/identity) with any SDK
+that accepts ServiceClientCredentials from packages like `@azure/arm-*` or `@azure/ms-rest-*`. 
+
+To use this type, just copy `azureIdentityCredentialAdapter.ts`, `package.json`, and `tsconfig.json` file located in `js` directory into your application and install packages in `package.json`.
+
+After you have created this type, you can reference it in your code as shown below:
+
+```TypeScript
+# Example for azure-mgmt-resource client
+const cred = new AzureIdentityCredentialAdapter();
+const client = new ResourceManagementClient(cred, subscriptionId);
+```
+
+The above code will instantiate an Azure.Identity compatible TokenCredential object based on DefaultAzureCredential and pass that to the ResourceManagementClient instance.
+
+#### Testing AzureIdentityCredentialAdapter
+
+This repository has a test that creates a resource group in a given subscription.
+
+To run this test, ensure you have `.env` file created and accessible from the root of your repo. Your `.env` file should have the following properties set:
+
+- AZURE_SUBSCRIPTION_ID
+- AZURE_TENANT_ID
+- AZURE_CLIENT_ID
+- AZURE_CLIENT_SECRET
+
+Install the test dependencies using npm under the path of `package.json`.
+
+```
+npm i
+```
+Then install mocha.
+
+```
+npm i -g mocha
+```
+compile ts to js using tsc. 
+
+```
+tsc azureIdentityCredentialAdapter.spec.ts --esModuleInterop
+```
+
+Once you have the `.env` file configured and js compiled, run the test simply calling `mocha azureIdentityCredentialAdapter.spec.js --timeout 10000`.
 
 ## Python
 
