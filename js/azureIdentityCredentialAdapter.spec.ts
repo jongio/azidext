@@ -3,7 +3,7 @@ import * as dotenv from "dotenv";
 import { ResourceManagementClient } from "@azure/arm-resources";
 import { AzureIdentityCredentialAdapter } from "./azureIdentityCredentialAdapter ";
 
-dotenv.config();
+dotenv.config({ path: "../.env" });
 
 const subscriptionId = process.env.AZURE_SUBSCRIPTION_ID;
 

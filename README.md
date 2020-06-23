@@ -149,7 +149,11 @@ Install the test dependencies using npm under the path of `package.json`.
 ```
 npm i
 ```
+Then install mocha.
 
+```
+npm i -g mocha
+```
 compile ts to js using tsc. 
 
 ```
