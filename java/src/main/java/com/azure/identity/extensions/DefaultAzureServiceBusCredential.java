@@ -1,4 +1,4 @@
-package com.jongallant.azure.identity.extensions;
+package com.azure.identity.extensions;
 
 import com.microsoft.azure.servicebus.security.SecurityToken;
 import com.microsoft.azure.servicebus.security.SecurityTokenType;

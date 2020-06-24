@@ -1,4 +1,4 @@
-package com.jongallant.azure.identity.extensions;
+package com.azure.identity.extensions;
 
 import com.microsoft.azure.management.Azure;
 import com.microsoft.azure.management.resources.fluentcore.arm.Region;
