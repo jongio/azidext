@@ -18,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
  * .azure:azure-identity module. This class provides a convenient mechanism to authenticate service bus using the latest
  * Azure Identity SDK.
  */
-public class DefaultAzureServiceBusCredential extends TokenProvider {
+public class AzureIdentityServiceBusCredential extends TokenProvider {
 
   private static final String SERVICEBUS_SCOPE = "https://servicebus.azure.net/.default";
   private final DefaultAzureCredential defaultAzureCredential;
@@ -27,7 +27,7 @@ public class DefaultAzureServiceBusCredential extends TokenProvider {
   /**
    * Creates an instance of DefaultAzureServiceBusCredential.
    */
-  public DefaultAzureServiceBusCredential() {
+  public AzureIdentityServiceBusCredential() {
     this(new DefaultAzureCredentialBuilder().build());
   }
 
@@ -36,7 +36,7 @@ public class DefaultAzureServiceBusCredential extends TokenProvider {
    *
    * @param defaultAzureCredential The {@link DefaultAzureCredential} to use.
    */
-  public DefaultAzureServiceBusCredential(DefaultAzureCredential defaultAzureCredential) {
+  public AzureIdentityServiceBusCredential(DefaultAzureCredential defaultAzureCredential) {
     this.defaultAzureCredential = defaultAzureCredential;
   }
 

@@ -22,23 +22,16 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 /**
- * Unit test for {@link DefaultAzureServiceBusCredential}.
+ * Unit test for {@link AzureIdentityServiceBusCredential}.
  */
-public class DefaultAzureServiceBusCredentialTest {
+public class AzureIdentityServiceBusCredentialTest {
 
-  private static final String AZURE_SERVICE_BUS_ENDPOINT = "AZURE_SERVICE_BUS_ENDPOINT";
-  private static final String AZURE_SERVICE_BUS_ENTITY_PATH = "AZURE_SERVICE_BUS_ENTITY_PATH";
-  private static final String AZURE_SERVICE_BUS_SUBSCRIPTION_NAME = "AZURE_SERVICE_BUS_SUBSCRIPTION_NAME";
+  private static final String AZURE_BASE_NAME = "AZURE_BASE_NAME";
   private static Dotenv ENVIRONMENT;
 
   /**
    * Loads environment variables from a properties file named ".env" that should be available in the classpath. The "
-   * .env" file should have definitions for:
-   * <li>Service bus endpoint with key AZURE_SERVICE_BUS_ENDPOINT</li>
-   * <li>Service bus entity path with key AZURE_SERVICE_BUS_ENTITY_PATH</li>
-   * <li>Service bus subscrition name with key AZURE_SERVICE_BUS_SUBSCRIPTION_NAME and the value should be of the
-   * format [topicname]/subscriptions/[subscriptionname]
-   * </li>
+   * .env" file should have definition for AZURE_BASE_NAME which has the prefix for Service Bus namespace.
    *
    * Template for this file can be found at the root of this repository name .env.temp
    */
@@ -55,10 +48,10 @@ public class DefaultAzureServiceBusCredentialTest {
    */
   @Test
   public void testDefaultCredential() throws Exception {
-    ClientSettings clientSettings = new ClientSettings(new DefaultAzureServiceBusCredential());
-    TopicClient topicClient = new TopicClient(ENVIRONMENT.get(AZURE_SERVICE_BUS_ENDPOINT),
-        ENVIRONMENT.get(AZURE_SERVICE_BUS_ENTITY_PATH),
-        clientSettings);
+    ClientSettings clientSettings = new ClientSettings(new AzureIdentityServiceBusCredential());
+    String endpoint = ENVIRONMENT.get(AZURE_BASE_NAME) + "sbns";
+    String topicName = "topic1";
+    TopicClient topicClient = new TopicClient(endpoint, topicName, clientSettings);
     String message = "hello " + UUID.randomUUID().toString().substring(0, 8);
 
     // send a message
@@ -66,8 +59,8 @@ public class DefaultAzureServiceBusCredentialTest {
     topicClient.closeAsync().get();
 
     // receive the message
-    SubscriptionClient subscriptionClient = new SubscriptionClient(ENVIRONMENT.get(AZURE_SERVICE_BUS_ENDPOINT),
-        ENVIRONMENT.get(AZURE_SERVICE_BUS_SUBSCRIPTION_NAME), clientSettings, ReceiveMode.RECEIVEANDDELETE);
+    String subscriptionPath = "sub1";
+    SubscriptionClient subscriptionClient = new SubscriptionClient(endpoint, subscriptionPath, clientSettings, ReceiveMode.RECEIVEANDDELETE);
 
     CountDownLatch countDownLatch = new CountDownLatch(1); // expect to receive just 1 message
     subscriptionClient.registerMessageHandler(

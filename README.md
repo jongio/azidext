@@ -60,7 +60,7 @@ var resourceGroup = Azure.Authenticate(creds)
 
 ### AzureIdentityServiceBusCredentialAdapter.cs
 
-The `AzureIdentityServiceBusCredentialAdapter` class allows you to use all of the goodness of `Azure.Identity.DefaultAzureCredential` with the Service Bus SDKs.  Service Bus will officially be supported by the new SDKs soon, this is a stopgap that enables you to use the same credential flow throughout your application.
+The `AzureIdentityServiceBusCredentialAdapter` class allows you to use all of the goodness of `DefaultAzureCredential` from [azure-identity](https://mvnrepository.com/artifact/com.azure/azure-identity) with the Service Bus SDKs.  Service Bus will officially be supported by the new SDKs soon, this is a stopgap that enables you to use the same credential flow throughout your application.
 
 ```cmd
 dotnet add package Microsoft.Azure.ServiceBus --version 4.1.1
@@ -80,38 +80,38 @@ var client = new TopicClient("sbendpoint", "entitypath", new AzureIdentityServic
 
 ## Java
 
-### DefaultAzureServiceBusCredential.java
+### AzureIdentityServiceBusCredential.java
 
-The `DefaultAzureServiceBusCredential` class allows you to use all of the goodness of `Azure.Identity.DefaultAzureCredential` with the Service Bus SDKs.  Service Bus will officially be supported by the new SDKs soon, this is a stopgap that enables you to use the same credential flow throughout your application.
+The `AzureIdentityServiceBusCredential` class allows you to use all of the goodness of `DefaultAzureCredential` from [azure-identity](https://mvnrepository.com/artifact/com.azure/azure-identity) with the Service Bus SDKs.  Service Bus will officially be supported by the new SDKs soon, this is a stopgap that enables you to use the same credential flow throughout your application.
 
-To use this type, just copy `DefaultAzureServiceBusCredential.java` file located in `java/src/main/java/com/jongallant/azure/identity/extensions` directory into your application and make necessary package name updates.
+To use this type, just copy `AzureIdentityServiceBusCredential.java` file located in `java/src/main/java/com/jongallant/azure/identity/extensions` directory into your application and make necessary package name updates.
 
 Sample code to create a new topic client:
 
 ```java
-ClientSettings clientSettings = new ClientSettings(new DefaultAzureServiceBusCredential());
+ClientSettings clientSettings = new ClientSettings(new AzureIdentityServiceBusCredential());
 TopicClient topicClient = new TopicClient("servicebus-endpoint", "servicebus-entitypath", clientSettings);
 ```
 
-### DefaultAzureCredentialAdapter.java
+### AzureIdentityCredentialAdapter.java
 
-The `DefaultAzureCredentialAdapter` class provides a simple bridge to use `DefaultAzureCredential` from `com.azure` namespace in `com.microsoft.azure` SDKs. This is a convenient mechanism to authenticate all fluent Azure Management Resources and a some data plane SDKs that use `ServiceClientCredential` family of credentials.
+The `AzureIdentityCredentialAdapter` class provides a simple bridge to use `DefaultAzureCredential` from `com.azure` namespace in `com.microsoft.azure` SDKs. This is a convenient mechanism to authenticate all fluent Azure Management Resources and a some data plane SDKs that use `ServiceClientCredential` family of credentials.
 
-To use this type, just copy `DefaultAzureCredentialAdapter.java` file located in `java/src/main/java/com/jongallant/azure/identity/extensions`directory into your application and make necessary package name updates.
+To use this type, just copy `AzureIdentityCredentialAdapter.java` file located in `java/src/main/java/com/jongallant/azure/identity/extensions`directory into your application and make necessary package name updates.
 
 After you have created this type, you can reference it in your code as shown below:
 
 ```java
-Azure azure = Azure.authenticate(new DefaultAzureCredentialAdapter(tenantId)).withDefaultSubscription();
+Azure azure = Azure.authenticate(new AzureIdentityCredentialAdapter(tenantId)).withDefaultSubscription();
 ```
 
 Above code will provide an instance of `Azure` fluent type from which you can access all Azure Resource Managers.
 
 #### Testing AzureIdentityCredentialAdapter
 
-This repository has a test class called `DefaultAzureCredentailAdapterTest` that tests creation of a storage account, listing all storage accounts in a resource group to validate successful creation, then deleting the account created earlier in this test and listing again to ensure successful deletion.
+This repository has a test class called `AzureIdentityCredentialAdapterTest` that tests creation of a storage account, listing all storage accounts in a resource group to validate successful creation, then deleting the account created earlier in this test and listing again to ensure successful deletion.
 
-To run `DefaultAzureCredentailAdapterTest`, ensure you have `.env` file created and accessible from your classpath. Your `.env` file should have the following properties set:
+To run `AzureIdentityCredentialAdapterTest`, ensure you have `.env` file created and accessible from your classpath. Your `.env` file should have the following properties set:
 
 - AZURE_TENANT_ID
 - AZURE_STORAGE_ACCOUNT_NAME
