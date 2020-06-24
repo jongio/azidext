@@ -1,4 +1,4 @@
-package com.jongallant.azure.identity.extensions;
+package com.azure.identity.extensions;
 
 import com.azure.identity.DefaultAzureCredential;
 import com.microsoft.azure.servicebus.ClientSettings;

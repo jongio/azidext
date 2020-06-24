@@ -84,7 +84,7 @@ var client = new TopicClient("sbendpoint", "entitypath", new AzureIdentityServic
 
 The `DefaultAzureServiceBusCredential` class allows you to use all of the goodness of `Azure.Identity.DefaultAzureCredential` with the Service Bus SDKs.  Service Bus will officially be supported by the new SDKs soon, this is a stopgap that enables you to use the same credential flow throughout your application.
 
-To use this type, just copy `DefaultAzureServiceBusCredential.java` file located in `java/src/main/java/com/jongallant/azure/identity/extensions` directory into your application and make necessary package name updates.
+To use this type, just copy `DefaultAzureServiceBusCredential.java` file located in `java/src/main/java/com/azure/identity/extensions` directory into your application and make necessary package name updates.
 
 Sample code to create a new topic client:
 
@@ -97,7 +97,7 @@ TopicClient topicClient = new TopicClient("servicebus-endpoint", "servicebus-ent
 
 The `DefaultAzureCredentialAdapter` class provides a simple bridge to use `DefaultAzureCredential` from `com.azure` namespace in `com.microsoft.azure` SDKs. This is a convenient mechanism to authenticate all fluent Azure Management Resources and a some data plane SDKs that use `ServiceClientCredential` family of credentials.
 
-To use this type, just copy `DefaultAzureCredentialAdapter.java` file located in `java/src/main/java/com/jongallant/azure/identity/extensions`directory into your application and make necessary package name updates.
+To use this type, just copy `DefaultAzureCredentialAdapter.java` file located in `java/src/main/java/com/azure/identity/extensions`directory into your application and make necessary package name updates.
 
 After you have created this type, you can reference it in your code as shown below:
 
