@@ -2,15 +2,15 @@
 
 This repo is a place for us to share ideas and extensions to the Azure Identity libraries.
 
-> **DISCLAIMER**: The code in this repo is not officially supported or intended for production use. The intention of this repo it to unblock customers who would like to use the DefaultAzureCredential capabilities in the Fluent, Management, and ServiceBus SDKs before they have been migrated to the new SDK Azure.Core and officially support TokenCredentials. We have included minimal tests in this repo, so please take it upon yourself to fully test this code to ensure it works in your environment.
+> **DISCLAIMER**: The code in this repo is not officially supported or intended for production use. The intention of this repo it to unblock customers who would like to use the Azure.Identity capabilities in the Fluent, Resource Management, and Service Bus SDKs before they have been migrated to the new SDK Azure.Core and officially support TokenCredential. We have included minimal tests in this repo, so please take it upon yourself to fully test this code to ensure it works in your environment.
 
 ## Languages
 
-We currently have included examples for [.NET](#.NET), [Java](#Java), [TypeScript](#TypeScript), and [Python](#Python). Please file an issue if you would like examples for other languages as well.
+We currently have included examples for [.NET](#.NET), [Java](#Java), [JavaScript/TypeScript](#TypeScript), and [Python](#Python). Please file an issue if you would like examples for other languages as well.
 
 ## Usage
 
-The classes contained in this repo are only meant to be a temporary stopgap between now and when the Management, Fluent, and ServiceBus SDKs support Azure.Core.  Since those efforts are currently underway, we think it would be best for you to copy the classes in this project to your class instead of releasing them via a package manager.
+The classes contained in this repo are only meant to be a temporary stopgap between now and when the Resource Management, Fluent, and Service Bus SDKs support Azure.Core.  Since those efforts are currently underway, we think it would be best for you to copy the classes in this project to your class instead of releasing them via a package manager.
 
 1. Clone the repo `git clone https://github.com/jongio/azidext`
 1. Either reference the project or copy the classes you need into your solution.
@@ -80,19 +80,6 @@ var client = new TopicClient("sbendpoint", "entitypath", new AzureIdentityServic
 
 ## Java
 
-### AzureIdentityServiceBusCredential.java
-
-The `AzureIdentityServiceBusCredential` class allows you to use all of the goodness of `DefaultAzureCredential` from [azure-identity](https://mvnrepository.com/artifact/com.azure/azure-identity) with the Service Bus SDKs.  Service Bus will officially be supported by the new SDKs soon, this is a stopgap that enables you to use the same credential flow throughout your application.
-
-To use this type, just copy `AzureIdentityServiceBusCredential.java` file located in `java/src/main/java/com/azure/identity/extensions` directory into your application and make necessary package name updates.
-
-Sample code to create a new topic client:
-
-```java
-ClientSettings clientSettings = new ClientSettings(new AzureIdentityServiceBusCredential());
-TopicClient topicClient = new TopicClient("servicebus-endpoint", "servicebus-entitypath", clientSettings);
-```
-
 ### AzureIdentityCredentialAdapter.java
 
 The `AzureIdentityCredentialAdapter` class provides a simple bridge to use `DefaultAzureCredential` from `com.azure` namespace in `com.microsoft.azure` SDKs. This is a convenient mechanism to authenticate all fluent Azure Management Resources and a some data plane SDKs that use `ServiceClientCredential` family of credentials.
@@ -106,6 +93,19 @@ Azure azure = Azure.authenticate(new AzureIdentityCredentialAdapter(tenantId)).w
 ```
 
 Above code will provide an instance of `Azure` fluent type from which you can access all Azure Resource Managers.
+
+### AzureIdentityServiceBusCredential.java
+
+The `AzureIdentityServiceBusCredential` class allows you to use all of the goodness of `DefaultAzureCredential` from [azure-identity](https://mvnrepository.com/artifact/com.azure/azure-identity) with the Service Bus SDKs.  Service Bus will officially be supported by the new SDKs soon, this is a stopgap that enables you to use the same credential flow throughout your application.
+
+To use this type, just copy `AzureIdentityServiceBusCredential.java` file located in `java/src/main/java/com/azure/identity/extensions` directory into your application and make necessary package name updates.
+
+Sample code to create a new topic client:
+
+```java
+ClientSettings clientSettings = new ClientSettings(new AzureIdentityServiceBusCredential());
+TopicClient topicClient = new TopicClient("servicebus-endpoint", "servicebus-entitypath", clientSettings);
+```
 
 #### Testing AzureIdentityCredentialAdapter
 
@@ -229,7 +229,9 @@ More to come soon.  Please file a GitHub issue with any questions/suggestions.
 2. Rename .env.tmp to .env and update the the following values from the SP
 
     `AZURE_CLIENT_ID=appId`
+
     `AZURE_CLIENT_SECRET=password`
+
     `AZURE_TENANT_ID=tenantId`
 
 3. Run `az account show` to get your subscription id and update the .env file with that.
