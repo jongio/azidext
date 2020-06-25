@@ -1,4 +1,4 @@
-package com.jongallant.azure.identity.extensions;
+package com.azure.identity.extensions;
 
 import com.azure.core.credential.AccessToken;
 import com.azure.core.credential.TokenCredential;

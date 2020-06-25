@@ -1,10 +1,10 @@
 package com.azure.identity.extensions;
 
+import com.azure.core.credential.TokenCredential;
 import com.microsoft.azure.servicebus.security.SecurityToken;
 import com.microsoft.azure.servicebus.security.SecurityTokenType;
 import com.microsoft.azure.servicebus.security.TokenProvider;
 import com.azure.core.credential.TokenRequestContext;
-import com.azure.identity.DefaultAzureCredential;
 import com.azure.identity.DefaultAzureCredentialBuilder;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,30 +14,30 @@ import java.time.Instant;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * A Service Bus {@link TokenProvider} that uses {@link DefaultAzureCredential} that is available in com
+ * A Service Bus {@link TokenProvider} that uses {@link TokenCredential} that is available in com
  * .azure:azure-identity module. This class provides a convenient mechanism to authenticate service bus using the latest
  * Azure Identity SDK.
  */
-public class DefaultAzureServiceBusCredential extends TokenProvider {
+public class AzureIdentityServiceBusCredential extends TokenProvider {
 
   private static final String SERVICEBUS_SCOPE = "https://servicebus.azure.net/.default";
-  private final DefaultAzureCredential defaultAzureCredential;
+  private final TokenCredential tokenCredential;
   private final Map<String, SecurityToken> tokenCache = new ConcurrentHashMap<>();
 
   /**
    * Creates an instance of DefaultAzureServiceBusCredential.
    */
-  public DefaultAzureServiceBusCredential() {
+  public AzureIdentityServiceBusCredential() {
     this(new DefaultAzureCredentialBuilder().build());
   }
 
   /**
-   * Creates an instance of DefaultAzureServiceBusCredential using the provided {@link DefaultAzureCredential}.
+   * Creates an instance of DefaultAzureServiceBusCredential using the provided {@link TokenCredential}.
    *
-   * @param defaultAzureCredential The {@link DefaultAzureCredential} to use.
+   * @param tokenCredential The {@link TokenCredential} to use.
    */
-  public DefaultAzureServiceBusCredential(DefaultAzureCredential defaultAzureCredential) {
-    this.defaultAzureCredential = defaultAzureCredential;
+  public AzureIdentityServiceBusCredential(TokenCredential tokenCredential) {
+    this.tokenCredential = tokenCredential;
   }
 
   /**
@@ -50,7 +50,7 @@ public class DefaultAzureServiceBusCredential extends TokenProvider {
       return Mono.just(tokenCache.get(audience)).toFuture();
     }
 
-    return defaultAzureCredential
+    return tokenCredential
         .getToken(tokenRequestContext)
         .flatMap(accessToken -> {
           SecurityToken securityToken = new SecurityToken(SecurityTokenType.JWT, audience, accessToken.getToken(),

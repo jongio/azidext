@@ -1,6 +1,7 @@
-package com.jongallant.azure.identity.extensions;
+package com.azure.identity.extensions;
 
 import com.azure.identity.DefaultAzureCredential;
+import com.azure.identity.extensions.AzureIdentityServiceBusCredential;
 import com.microsoft.azure.servicebus.ClientSettings;
 import com.microsoft.azure.servicebus.ExceptionPhase;
 import com.microsoft.azure.servicebus.IMessage;
