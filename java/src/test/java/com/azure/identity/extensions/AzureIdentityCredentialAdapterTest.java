@@ -1,5 +1,6 @@
 package com.azure.identity.extensions;
 
+import com.azure.identity.extensions.AzureIdentityCredentialAdapter;
 import com.microsoft.azure.management.Azure;
 import com.microsoft.azure.management.resources.fluentcore.arm.Region;
 import com.microsoft.azure.management.storage.StorageAccount;
@@ -9,20 +10,19 @@ import org.junit.jupiter.api.Test;
 import rx.observers.TestSubscriber;
 
 /**
- * Tests for {@link DefaultAzureCredentialAdapter}. These tests run against live Azure services to ensure credentials
+ * Tests for {@link AzureIdentityCredentialAdapter}. These tests run against live Azure services to ensure credentials
  * work correctly.
  */
-public class DefaultAzureCredentialAdapterTest {
+public class AzureIdentityCredentialAdapterTest {
 
-  private static final String AZURE_STORAGE_ACCOUNT = "AZURE_STORAGE_ACCOUNT_NAME";
   private static final String AZURE_TENANT_ID = "AZURE_TENANT_ID";
-  private static final String AZURE_RESOURCE_GROUP = "AZURE_RESOURCE_GROUP";
+  private static final String AZURE_BASE_NAME = "AZURE_BASE_NAME";
   private static Dotenv ENVIRONMENT;
 
   /**
    * Loads environment variables from a properties file named ".env" that should be available in the classpath.
    *
-   * Template for this file can be found at the root of this repository name .env.temp
+   * Template for this file can be found at the root of this repository name .env.tmp
    */
   @BeforeAll
   static void loadEnvironmentProperties() {
@@ -40,13 +40,15 @@ public class DefaultAzureCredentialAdapterTest {
   @Test
   public void testStorageAccountCreation() throws Exception {
     String tenantId = ENVIRONMENT.get(AZURE_TENANT_ID);
+    String baseName = ENVIRONMENT.get(AZURE_BASE_NAME);
     // Create an instance of fluent Azure type which can be used for managing various Azure resources
-    Azure azure = Azure.authenticate(new DefaultAzureCredentialAdapter(tenantId)).withDefaultSubscription();
+    Azure azure = Azure.authenticate(new AzureIdentityCredentialAdapter(tenantId)).withDefaultSubscription();
 
     // create a test storage account
+
     StorageAccount createdAccount =
-        azure.storageAccounts().define(ENVIRONMENT.get(AZURE_STORAGE_ACCOUNT)).withRegion(Region.US_WEST2)
-            .withExistingResourceGroup(ENVIRONMENT.get(AZURE_RESOURCE_GROUP)).create();
+        azure.storageAccounts().define(baseName + "storageaccount").withRegion(Region.US_WEST2)
+            .withExistingResourceGroup(baseName + "rg").create();
 
     // list all storage accounts and verify that the test account created above is part of the list
     TestSubscriber<String> testCreateSubscriber = new TestSubscriber<>();
