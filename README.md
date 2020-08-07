@@ -6,7 +6,7 @@ This repo is a place for us to share ideas and extensions to the Azure Identity 
 
 ## Languages
 
-We currently have included examples for [.NET](#.NET), [Java](#Java), [JavaScript/TypeScript](#TypeScript), and [Python](#Python). Please file an issue if you would like examples for other languages as well.
+We currently have included examples for [.NET](#.NET), [Java](#Java), [JavaScript/TypeScript](#TypeScript), [GoLang](#GoLang), and [Python](#Python). Please file an issue if you would like examples for other languages as well.
 
 ## Usage
 
@@ -166,6 +166,28 @@ tsc azureIdentityCredentialAdapter.spec.ts --esModuleInterop
 ```
 
 Once you have the `.env` file configured and js compiled, run the test simply calling `mocha azureIdentityCredentialAdapter.spec.js --timeout 10000`.
+
+## GoLang
+
+### AzureIdentityCredentialAdapter.cs
+
+The `AzureIdentityCredentialAdapter` class allows you to use all the goodness of `Azure.Identity.DefaultAzureCredential` in the Azure Management libraries. You can use it in place of `Authorizer` when calling your Azure Management APIs.
+
+To use this type, just copy  `azure_identity_credential_adapter.go` and `azure_identity_token_provider.go` file located in the `go` directory into your application and using follow command to get necessary package.
+
+```
+go get -u github.com/.............
+```
+
+Use `AzureIdentityCredentialAdapter` in place of `Authorizer`:
+
+```go
+groupsClient := resources.NewGroupsClient(subscriptionID)
+	a, err := NewAzureIdentityCredentialAapter()
+	if err != nil {		
+	}
+	groupsClient.Authorizer = a
+```
 
 ## Python
 
