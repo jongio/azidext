@@ -6,7 +6,7 @@ This repo is a place for us to share ideas and extensions to the Azure Identity 
 
 ## Languages
 
-We currently have included examples for [.NET](#.NET), [Java](#Java), [JavaScript/TypeScript](#TypeScript), [GoLang](#GoLang), and [Python](#Python). Please file an issue if you would like examples for other languages as well.
+We currently have included examples for [.NET](#.NET), [Java](#Java), [JavaScript/TypeScript](#TypeScript), [Go](#Go), and [Python](#Python). Please file an issue if you would like examples for other languages as well.
 
 ## Usage
 
@@ -167,13 +167,13 @@ tsc azureIdentityCredentialAdapter.spec.ts --esModuleInterop
 
 Once you have the `.env` file configured and js compiled, run the test simply calling `mocha azureIdentityCredentialAdapter.spec.js --timeout 10000`.
 
-## GoLang
+## Go
 
-### AzureIdentityCredentialAdapter.cs
+### AzureIdentityCredentialAdapter
 
 The `AzureIdentityCredentialAdapter` class allows you to use all the goodness of `Azure.Identity.DefaultAzureCredential` in the Azure Management libraries. You can use it in place of `Authorizer` when calling your Azure Management APIs.
 
-To use this type, just copy  `azure_identity_credential_adapter.go` and `azure_identity_token_provider.go` file located in the `go` directory into your application and using follow command to get necessary package.
+To use this type, just import package github.com/jongio/azidext/go/azidentity and using follow command to get package.
 
 ```
 go get -u github.com/.............
@@ -182,12 +182,27 @@ go get -u github.com/.............
 Use `AzureIdentityCredentialAdapter` in place of `Authorizer`:
 
 ```go
+import "github.com/jongio/azidext/go/azidentity"
+
 groupsClient := resources.NewGroupsClient(subscriptionID)
-	a, err := NewAzureIdentityCredentialAapter()
+	a, err := azidentity.NewAzureIdentityCredentialAapter()
 	if err != nil {		
 	}
 	groupsClient.Authorizer = a
 ```
+
+#### Testing AzureIdentityCredentialAdapter
+
+This repository has a test that creates a resource group in a given subscription.
+
+To run this test, ensure you have `.env` file created and accessible from the root of your repo. Your `.env` file should have the following properties set:
+
+- AZURE_SUBSCRIPTION_ID
+- AZURE_TENANT_ID
+- AZURE_CLIENT_ID
+- AZURE_CLIENT_SECRET
+
+Once you have the `.env` file configured, run the test simply calling `go test`.
 
 ## Python
 

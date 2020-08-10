@@ -10,9 +10,14 @@ import (
 
 	"github.com/Azure/azure-sdk-for-go/sdk/to"
 	"github.com/Azure/azure-sdk-for-go/services/resources/mgmt/2019-05-01/resources"
+	"github.com/joho/godotenv"
 )
 
 func Test_testCreateResouceGroup(t *testing.T) {
+	err := godotenv.Load("../../.env")
+	if err != nil {
+		t.Fatalf("Loading environment variable from .env fail, error: %v", err)
+	}
 	subscriptionID := os.Getenv("AZURE_SUBSCRIPTION_ID")
 	if subscriptionID == "" {
 		t.Fatalf("Missing environment variable AZURE_SUBSCRIPTION_ID")
