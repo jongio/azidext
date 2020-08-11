@@ -185,7 +185,7 @@ Use `NewAzureIdentityCredentialAdapter` in place of `Authorizer`:
 import "github.com/jongio/azidext/go/azidentity"
 
 groupsClient := resources.NewGroupsClient(subscriptionID)
-	a, err := azidentity.NewAzureIdentityCredentialAapter()
+	a, err := azidentity.NewAzureIdentityCredentialAapter(nil, nil)
 	if err != nil {		
 	}
 	groupsClient.Authorizer = a

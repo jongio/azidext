@@ -23,7 +23,7 @@ func Test_testCreateResouceGroup(t *testing.T) {
 		t.Fatalf("Missing environment variable AZURE_SUBSCRIPTION_ID")
 	}
 	groupsClient := resources.NewGroupsClient(subscriptionID)
-	a, err := NewAzureIdentityCredentialAapter()
+	a, err := NewAzureIdentityCredentialAapter(nil, nil)
 	if err != nil {
 		t.Fatalf("Create AzureIdentityTokenAapter fail, error: %v", err)
 	}

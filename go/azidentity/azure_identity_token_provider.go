@@ -11,10 +11,7 @@ import (
 type AzureIdentityTokenProvider struct {
 	TokenCredential azcore.TokenCredential
 	Scopes          []string
-}
-
-type azureIdentityToken struct {
-	AccessToken string `json:"access_token"`
+	AccessToken     string `json:"access_token"`
 }
 
 // NewAzureIdentityTokenProvider return AzureIdentityTokenProvider.
@@ -29,16 +26,10 @@ func NewAzureIdentityTokenProvider(tokenCredential azcore.TokenCredential, scope
 
 // OAuthToken return the current access token.
 func (c *AzureIdentityTokenProvider) OAuthToken() string {
-	token, err := c.getToken()
+	accesstoken, err := c.TokenCredential.GetToken(context.Background(), azcore.TokenRequestOptions{Scopes: c.Scopes})
 	if err != nil {
 		panic("TokenCredential get token failed, error:" + err.Error())
 	}
-	return token.AccessToken
-}
-func (c *AzureIdentityTokenProvider) getToken() (*azureIdentityToken, error) {
-	accesstoken, err := c.TokenCredential.GetToken(context.Background(), azcore.TokenRequestOptions{Scopes: c.Scopes})
-	if err != nil {
-		return nil, err
-	}
-	return &azureIdentityToken{AccessToken: accesstoken.Token}, nil
+	c.AccessToken = accesstoken.Token
+	return c.AccessToken
 }

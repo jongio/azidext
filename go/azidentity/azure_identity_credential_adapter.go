@@ -7,21 +7,17 @@ import (
 )
 
 // NewAzureIdentityCredentialAapter returns BearerAuthorizer.
-func NewAzureIdentityCredentialAapter() (*autorest.BearerAuthorizer, error) {
-	defaultAzureCredential, err := azidentity.NewDefaultAzureCredential(nil)
-	if err != nil {
-		return nil, err
-	}
-	AzureIdentityTokenProvider := NewAzureIdentityTokenProvider(defaultAzureCredential, nil)
-	bearerAuthorizer := autorest.NewBearerAuthorizer(AzureIdentityTokenProvider)
-	return bearerAuthorizer, nil
-}
-
-// NewAzureIdentityCredentialAapterWithTokenCredential returns BearerAuthorizer.
 // azureCredential: TokenCredential
 // scopes: The list of scopes for which the token will have access
-func NewAzureIdentityCredentialAapterWithTokenCredential(tokenCredential azcore.TokenCredential, scopes []string) *autorest.BearerAuthorizer {
+func NewAzureIdentityCredentialAapter(tokenCredential azcore.TokenCredential, scopes []string) (*autorest.BearerAuthorizer, error) {
+	var err error
+	if tokenCredential == nil {
+		tokenCredential, err = azidentity.NewDefaultAzureCredential(nil)
+		if err != nil {
+			return nil, err
+		}
+	}
 	AzureIdentityTokenProvider := NewAzureIdentityTokenProvider(tokenCredential, scopes)
 	bearerAuthorizer := autorest.NewBearerAuthorizer(AzureIdentityTokenProvider)
-	return bearerAuthorizer
+	return bearerAuthorizer, nil
 }
