@@ -29,6 +29,11 @@ func Test_testCreateResouceGroup(t *testing.T) {
 	}
 	groupsClient.Authorizer = a
 	resourceGroupname := "azidextrg" + strconv.FormatInt(int64(rand.New(rand.NewSource(time.Now().UnixNano())).Int31n(100000000)), 10)
+	defer func() {
+		if err := recover(); err != nil {
+			t.Fatalf("Create ResourceGroup fail, error: %v", err)
+		}
+	}()
 	_, err = groupsClient.CreateOrUpdate(
 		context.Background(),
 		resourceGroupname,
