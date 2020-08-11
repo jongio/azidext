@@ -167,7 +167,7 @@ tsc azureIdentityCredentialAdapter.spec.ts --esModuleInterop
 
 Once you have the `.env` file configured and js compiled, run the test simply calling `mocha azureIdentityCredentialAdapter.spec.js --timeout 10000`.
 
-## Go
+## Golang
 
 ### NewAzureIdentityCredentialAdapter
 
