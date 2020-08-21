@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
 package azidentity
 
 import (
@@ -6,18 +9,29 @@ import (
 	"github.com/Azure/go-autorest/autorest"
 )
 
-// NewAzureIdentityCredentialAapter returns BearerAuthorizer.
+// NewDefaultAzureIdentityCredentialAdapter returns BearerAuthorizer.
+// scopes: The list of scopes for which the token will have access
+func NewDefaultAzureIdentityCredentialAdapter() (*autorest.BearerAuthorizer, error) {
+	tokenCredential, err := azidentity.NewDefaultAzureCredential(nil)
+	if err != nil {
+		return nil, err
+	}
+	bearerAuthorizer, err := NewAzureIdentityCredentialAdapter(tokenCredential, nil)
+	if err != nil {
+		return nil, err
+	}
+	return bearerAuthorizer, nil
+}
+
+// NewAzureIdentityCredentialAdapter returns BearerAuthorizer.
 // azureCredential: TokenCredential
 // scopes: The list of scopes for which the token will have access
-func NewAzureIdentityCredentialAapter(tokenCredential azcore.TokenCredential, scopes []string) (*autorest.BearerAuthorizer, error) {
-	var err error
-	if tokenCredential == nil {
-		tokenCredential, err = azidentity.NewDefaultAzureCredential(nil)
-		if err != nil {
-			return nil, err
-		}
+func NewAzureIdentityCredentialAdapter(tokenCredential azcore.TokenCredential, scopes []string) (*autorest.BearerAuthorizer, error) {
+	option := newScopeOption(scopes)
+	AzureIdentityTokenProvider, err := NewAzureIdentityTokenProvider(tokenCredential, option)
+	if err != nil {
+		return nil, err
 	}
-	AzureIdentityTokenProvider := NewAzureIdentityTokenProvider(tokenCredential, scopes)
 	bearerAuthorizer := autorest.NewBearerAuthorizer(AzureIdentityTokenProvider)
 	return bearerAuthorizer, nil
 }

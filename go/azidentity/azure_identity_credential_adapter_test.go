@@ -1,3 +1,6 @@
+// Copyright (c) Microsoft Corporation. All rights reserved.
+// Licensed under the MIT License.
+
 package azidentity
 
 import (
@@ -23,17 +26,13 @@ func Test_testCreateResouceGroup(t *testing.T) {
 		t.Fatalf("Missing environment variable AZURE_SUBSCRIPTION_ID")
 	}
 	groupsClient := resources.NewGroupsClient(subscriptionID)
-	a, err := NewAzureIdentityCredentialAapter(nil, nil)
+	a, err := NewDefaultAzureIdentityCredentialAdapter()
 	if err != nil {
-		t.Fatalf("Create AzureIdentityTokenAapter fail, error: %v", err)
+		t.Fatalf("Create DefaultAzureIdentityTokenAapter fail, error: %v", err)
 	}
 	groupsClient.Authorizer = a
 	resourceGroupname := "azidextrg" + strconv.FormatInt(int64(rand.New(rand.NewSource(time.Now().UnixNano())).Int31n(100000000)), 10)
-	defer func() {
-		if err := recover(); err != nil {
-			t.Fatalf("Create ResourceGroup fail, error: %v", err)
-		}
-	}()
+
 	_, err = groupsClient.CreateOrUpdate(
 		context.Background(),
 		resourceGroupname,
