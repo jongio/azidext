@@ -26,11 +26,11 @@ func Test_testCreateResouceGroup(t *testing.T) {
 		t.Fatalf("Missing environment variable AZURE_SUBSCRIPTION_ID")
 	}
 	groupsClient := resources.NewGroupsClient(subscriptionID)
-	a, err := NewDefaultAzureIdentityCredentialAdapter()
+	a, err := NewDefaultAzureCredentialAdapter(nil)
 	if err != nil {
 		t.Fatalf("Create DefaultAzureIdentityTokenAapter fail, error: %v", err)
 	}
-	groupsClient.Authorizer = a
+	groupsClient.Authorizer = a.NewBearerAuthorizer()
 	resourceGroupname := "azidextrg" + strconv.FormatInt(int64(rand.New(rand.NewSource(time.Now().UnixNano())).Int31n(100000000)), 10)
 
 	_, err = groupsClient.CreateOrUpdate(

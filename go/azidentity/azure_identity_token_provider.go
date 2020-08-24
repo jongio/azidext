@@ -15,12 +15,11 @@ type AzureIdentityTokenProvider struct {
 	AccessToken string `json:"access_token"`
 }
 
-// NewAzureIdentityTokenProvider return AzureIdentityTokenProvider.
-// azureCredential: TokenCredential
+// NewAzureIdentityTokenProvider returns AzureIdentityTokenProvider.
+// tokenCredential: TokenCredential
 // scopes: The list of scopes for which the token will have access
-func NewAzureIdentityTokenProvider(tokenCredential azcore.TokenCredential, option *scopeOption) (*AzureIdentityTokenProvider, error) {
-	option = option.setDefaultOption()
-	accesstoken, err := tokenCredential.GetToken(context.Background(), azcore.TokenRequestOptions{Scopes: option.Scopes})
+func NewAzureIdentityTokenProvider(tokenCredential azcore.TokenCredential, scopes []string) (*AzureIdentityTokenProvider, error) {
+	accesstoken, err := tokenCredential.GetToken(context.Background(), azcore.TokenRequestOptions{Scopes: scopes})
 	if err != nil {
 		return nil, err
 	}
@@ -32,22 +31,20 @@ func (c *AzureIdentityTokenProvider) OAuthToken() string {
 	return c.AccessToken
 }
 
-var defaultScopes []string = []string{"https://management.azure.com/.default"}
+// type scopeOption struct {
+// 	Scopes []string
+// }
 
-type scopeOption struct {
-	Scopes []string
-}
+// func (s *scopeOption) setDefaultOption() *scopeOption {
+// 	if s == nil {
+// 		s = &scopeOption{Scopes: defaultScopes}
+// 	}
+// 	return s
+// }
 
-func (s *scopeOption) setDefaultOption() *scopeOption {
-	if s == nil {
-		s = &scopeOption{Scopes: defaultScopes}
-	}
-	return s
-}
-
-func newScopeOption(scopes []string) *scopeOption {
-	if scopes == nil {
-		return nil
-	}
-	return &scopeOption{Scopes: scopes}
-}
+// func newScopeOption(scopes []string) *scopeOption {
+// 	if scopes == nil {
+// 		return nil
+// 	}
+// 	return &scopeOption{Scopes: scopes}
+// }
