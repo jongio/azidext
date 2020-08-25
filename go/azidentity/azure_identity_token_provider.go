@@ -30,21 +30,3 @@ func NewAzureIdentityTokenProvider(tokenCredential azcore.TokenCredential, scope
 func (c *AzureIdentityTokenProvider) OAuthToken() string {
 	return c.AccessToken
 }
-
-// type scopeOption struct {
-// 	Scopes []string
-// }
-
-// func (s *scopeOption) setDefaultOption() *scopeOption {
-// 	if s == nil {
-// 		s = &scopeOption{Scopes: defaultScopes}
-// 	}
-// 	return s
-// }
-
-// func newScopeOption(scopes []string) *scopeOption {
-// 	if scopes == nil {
-// 		return nil
-// 	}
-// 	return &scopeOption{Scopes: scopes}
-// }
