@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-package azidentity
+package azidext
 
 import (
 	"context"
@@ -17,7 +17,7 @@ import (
 )
 
 func Test_testCreateResouceGroup(t *testing.T) {
-	err := godotenv.Load("../../.env")
+	err := godotenv.Load("../.env")
 	if err != nil {
 		t.Fatalf("Loading environment variable from .env fail, error: %v", err)
 	}
@@ -30,7 +30,7 @@ func Test_testCreateResouceGroup(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Create DefaultAzureIdentityTokenAapter fail, error: %v", err)
 	}
-	groupsClient.Authorizer = a.NewBearerAuthorizer()
+	groupsClient.Authorizer = a
 	resourceGroupname := "azidextrg" + strconv.FormatInt(int64(rand.New(rand.NewSource(time.Now().UnixNano())).Int31n(100000000)), 10)
 
 	_, err = groupsClient.CreateOrUpdate(

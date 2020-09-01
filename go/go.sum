@@ -1,8 +1,8 @@
-github.com/Azure/azure-sdk-for-go v45.1.0+incompatible h1:kxtaPD8n2z5Za+9e3sKsYG2IX6PG2R6VXtgS7gAbh3A=
-github.com/Azure/azure-sdk-for-go v45.1.0+incompatible/go.mod h1:9XXNKU+eRnpl9moKnB4QOLf1HestfXbmab5FXxiDBjc=
+github.com/Azure/azure-sdk-for-go v46.0.0+incompatible h1:4qlEOCDcDQZTGczYGzbGYCdJfVpZLIs8AEo5+MoXBPw=
+github.com/Azure/azure-sdk-for-go v46.0.0+incompatible/go.mod h1:9XXNKU+eRnpl9moKnB4QOLf1HestfXbmab5FXxiDBjc=
 github.com/Azure/azure-sdk-for-go/sdk/azcore v0.9.1/go.mod h1:fBbm1JLvufiabxBiiZWThNODf8+bARgZ81aP3CEx3sg=
-github.com/Azure/azure-sdk-for-go/sdk/azcore v0.9.4 h1:gtFPMBq2q4k8APBCPak6gPNHDKN6vCWQ36o6ox72A3g=
-github.com/Azure/azure-sdk-for-go/sdk/azcore v0.9.4/go.mod h1:Di5xm8E6X6yte1db/npBJSxzNliJpAMo0ZIZStGzp+4=
+github.com/Azure/azure-sdk-for-go/sdk/azcore v0.9.6 h1:Pcqitzt/YJIZWfoa/cwB42VB/Xd0ZU+lDqzDevi+xcg=
+github.com/Azure/azure-sdk-for-go/sdk/azcore v0.9.6/go.mod h1:Di5xm8E6X6yte1db/npBJSxzNliJpAMo0ZIZStGzp+4=
 github.com/Azure/azure-sdk-for-go/sdk/azidentity v0.1.0 h1:tBi9M7RlNXtG4USOpABQpCMbFpamTTGhN4JAHGdNGjc=
 github.com/Azure/azure-sdk-for-go/sdk/azidentity v0.1.0/go.mod h1:uFM6RUSMUQ7u9Hbtdmlg0D7kHqCKCpPxKELbb29rTdA=
 github.com/Azure/azure-sdk-for-go/sdk/internal v0.2.1/go.mod h1:Q+TCQnSr+clUU0JU+xrHZ3slYCxw17AOFdvWFpQXjAY=
@@ -13,8 +13,8 @@ github.com/Azure/azure-sdk-for-go/sdk/to v0.1.1 h1:xfQtpQrdXC5By+/gOhE6rLRevCw17
 github.com/Azure/azure-sdk-for-go/sdk/to v0.1.1/go.mod h1:UL/d4lvWAzSJUuX+19uKdN0ktyjoOyQhgY+HWNgtIYI=
 github.com/Azure/go-autorest v14.2.0+incompatible h1:V5VMDjClD3GiElqLWO7mz2MxNAK/vTfRHdAubSIPRgs=
 github.com/Azure/go-autorest v14.2.0+incompatible/go.mod h1:r+4oMnoxhatjLLJ6zxSWATqVooLgysK6ZNox3g/xq24=
-github.com/Azure/go-autorest/autorest v0.11.3 h1:fyYnmYujkIXUgv88D9/Wo2ybE4Zwd/TmQd5sSI5u2Ws=
-github.com/Azure/go-autorest/autorest v0.11.3/go.mod h1:JFgpikqFJ/MleTTxwepExTKnFUKKszPS8UavbQYUMuw=
+github.com/Azure/go-autorest/autorest v0.11.4 h1:iWJqGEvip7mjibEqC/srXNdo+4wLEPiwlP/7dZLtoPc=
+github.com/Azure/go-autorest/autorest v0.11.4/go.mod h1:JFgpikqFJ/MleTTxwepExTKnFUKKszPS8UavbQYUMuw=
 github.com/Azure/go-autorest/autorest/adal v0.9.0 h1:SigMbuFNuKgc1xcGhaeapbh+8fgsu+GxgDRFyg7f5lM=
 github.com/Azure/go-autorest/autorest/adal v0.9.0/go.mod h1:/c022QCutn2P7uY+/oQWWNcK9YU+MH96NgK+jErpbcg=
 github.com/Azure/go-autorest/autorest/date v0.3.0 h1:7gUk1U5M/CQbp9WoqinNzJar+8KY+LPI6wiWrP/myHw=
