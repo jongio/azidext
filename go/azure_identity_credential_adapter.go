@@ -4,33 +4,64 @@
 package azidext
 
 import (
-	"context"
+	"errors"
+	"net/http"
 
 	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	"github.com/Azure/go-autorest/autorest"
 )
 
-type tokenAdapter struct {
-	Token string `json:"access_token"`
+// NewAzureIdentityCredentialAdapter is used to adapt an azcore.Credential to an autorest.Authorizer
+func NewAzureIdentityCredentialAdapter(credential azcore.Credential, options azcore.AuthenticationPolicyOptions) autorest.Authorizer {
+	policy := credential.AuthenticationPolicy(options)
+	return &policyAdapter{p: policy}
 }
 
-// NewAzureIdentityCredentialAdapter is used to adapt an azcore.Credential to an autorest.Authorizer
-func NewAzureIdentityCredentialAdapter(credential azcore.TokenCredential, options azcore.TokenRequestOptions) (autorest.Authorizer, error) {
-
-	token, err := credential.GetToken(context.Background(), options)
-	if err != nil {
-		return nil, err
-	}
-	return &tokenAdapter{Token: token.Token}, nil
+type policyAdapter struct {
+	p azcore.Policy
 }
 
 // WithAuthorization implements the autorest.Authorizer interface for type policyAdapter.
-func (ca *tokenAdapter) WithAuthorization() autorest.PrepareDecorator {
-	return autorest.WithBearerAuthorization(ca.Token)
+func (ca *policyAdapter) WithAuthorization() autorest.PrepareDecorator {
+	return func(p autorest.Preparer) autorest.Preparer {
+		return autorest.PreparerFunc(func(r *http.Request) (*http.Request, error) {
+			r, err := p.Prepare(r)
+			if err != nil {
+				return r, err
+			}
+			_, err = ca.p.Do(r.Context(), &azcore.Request{Request: r})
+			if errors.Is(err, azcore.ErrNoMorePolicies) {
+				return r, nil
+			}
+			var afe *azidentity.AuthenticationFailedError
+			if errors.As(err, &afe) {
+				err = &tokenRefreshError{
+					inner: afe,
+				}
+			}
+			return r, err
+		})
+	}
 }
 
-//DefaultManagementScope defined the default Scopes
+type tokenRefreshError struct {
+	inner error
+}
+
+func (t *tokenRefreshError) Error() string {
+	return t.inner.Error()
+}
+
+func (t *tokenRefreshError) Response() *http.Response {
+	return nil
+}
+
+func (t *tokenRefreshError) Unwrap() error {
+	return t.inner
+}
+
+// DefaultManagementScope is the default credential scope for Azure Resource Management.
 const DefaultManagementScope = "https://management.azure.com//.default"
 
 // DefaultAzureCredentialOptions contains credential and authentication policy options.
@@ -39,17 +70,19 @@ type DefaultAzureCredentialOptions struct {
 	// Set this to nil to accept the underlying default behavior.
 	DefaultCredential *azidentity.DefaultAzureCredentialOptions
 
-	// TokenRequestOptions contain specific parameter that may be used by credentials types when attempting to get a token.
+	// AuthenticationPolicy contains configuration options passed to the underlying authentication policy.
 	// Setting this to nil will use the DefaultManagementScope when acquiring a token.
-	TokenRequest *azcore.TokenRequestOptions
+	AuthenticationPolicy *azcore.AuthenticationPolicyOptions
 }
 
 // NewDefaultAzureCredentialAdapter adapts azcore.NewDefaultAzureCredential to an autorest.Authorizer.
 func NewDefaultAzureCredentialAdapter(options *DefaultAzureCredentialOptions) (autorest.Authorizer, error) {
 	if options == nil {
 		options = &DefaultAzureCredentialOptions{
-			TokenRequest: &azcore.TokenRequestOptions{
-				Scopes: []string{DefaultManagementScope},
+			AuthenticationPolicy: &azcore.AuthenticationPolicyOptions{
+				Options: azcore.TokenRequestOptions{
+					Scopes: []string{DefaultManagementScope},
+				},
 			},
 		}
 	}
@@ -57,9 +90,5 @@ func NewDefaultAzureCredentialAdapter(options *DefaultAzureCredentialOptions) (a
 	if err != nil {
 		return nil, err
 	}
-	azureIdentityCredentialAdapter, err := NewAzureIdentityCredentialAdapter(chain, *options.TokenRequest)
-	if err != nil {
-		return nil, err
-	}
-	return azureIdentityCredentialAdapter, nil
+	return NewAzureIdentityCredentialAdapter(chain, *options.AuthenticationPolicy), nil
 }
