@@ -171,9 +171,9 @@ Once you have the `.env` file configured and js compiled, run the test simply ca
 
 ### NewAzureIdentityCredentialAdapter
 
-The `NewAzureIdentityCredentialAdapter` function allows you to use all the goodness of `azidext` in the Azure Management libraries. You can use it in place of `Authorizer` when calling your Azure Management APIs.
+The `NewAzureIdentityCredentialAdapter` function allows you to use all the goodness of `azidentity` in the Azure Management libraries. You can use it in place of `Authorizer` when calling your Azure Management APIs.
 
-To use this type, just import package github.com/jongio/azidext/go/azidentity and using follow command to get package.
+To use this type, just import package github.com/jongio/azidext/go/azidext and using follow command to get package.
 
 ```
 go get -u github.com/.............
@@ -182,11 +182,11 @@ go get -u github.com/.............
 Use `NewAzureIdentityCredentialAdapter` in place of `Authorizer`:
 
 ```go
-import "github.com/jongio/azidext/go/azidentity"
+import "github.com/jongio/azidext/go/azidext"
 
 groupsClient := resources.NewGroupsClient(subscriptionID)
-	a, err := azidentity.NewAzureIdentityCredentialAapter(nil, nil)
-	if err != nil {		
+	a, err := NewDefaultAzureCredentialAdapter(nil)
+	if err != nil {
 	}
 	groupsClient.Authorizer = a
 ```
