@@ -17,7 +17,7 @@ import (
 )
 
 func Test_testCreateResouceGroup(t *testing.T) {
-	err := godotenv.Load("../.env")
+	err := godotenv.Load("../../.env")
 	if err != nil {
 		t.Fatalf("Loading environment variable from .env fail, error: %v", err)
 	}

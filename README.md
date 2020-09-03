@@ -176,7 +176,7 @@ The `NewAzureIdentityCredentialAdapter` function allows you to use all the goodn
 To use this type, just import package github.com/jongio/azidext/go/azidext and using follow command to get package.
 
 ```
-go get -u github.com/.............
+go get -u github.com/jongio/azidext/go/azidext
 ```
 
 Use `NewAzureIdentityCredentialAdapter` in place of `Authorizer`:
