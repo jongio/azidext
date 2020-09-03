@@ -1,4 +1,4 @@
-module azidext
+module github.com/jongio/azidext/go/azidext
 
 go 1.13
 
