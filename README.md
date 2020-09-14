@@ -6,7 +6,7 @@ This repo is a place for us to share ideas and extensions to the Azure Identity 
 
 ## Languages
 
-We currently have included examples for [.NET](#.NET), [Java](#Java), [JavaScript/TypeScript](#TypeScript), and [Python](#Python). Please file an issue if you would like examples for other languages as well.
+We currently have included examples for [.NET](#.NET), [Java](#Java), [JavaScript/TypeScript](#TypeScript), [Golang](#Golang), and [Python](#Python). Please file an issue if you would like examples for other languages as well.
 
 ## Usage
 
@@ -166,6 +166,43 @@ tsc azureIdentityCredentialAdapter.spec.ts --esModuleInterop
 ```
 
 Once you have the `.env` file configured and js compiled, run the test simply calling `mocha azureIdentityCredentialAdapter.spec.js --timeout 10000`.
+
+## Golang
+
+### NewAzureIdentityCredentialAdapter
+
+The `NewAzureIdentityCredentialAdapter` function allows you to use all the goodness of `azidentity` in the Azure Management libraries. You can use it in place of `Authorizer` when calling your Azure Management APIs.
+
+To use this type, just import package github.com/jongio/azidext/go/azidext and using follow command to get package.
+
+```
+go get -u github.com/jongio/azidext/go/azidext
+```
+
+Use `NewAzureIdentityCredentialAdapter` in place of `Authorizer`:
+
+```go
+import "github.com/jongio/azidext/go/azidext"
+
+groupsClient := resources.NewGroupsClient(subscriptionID)
+	a, err := NewDefaultAzureCredentialAdapter(nil)
+	if err != nil {
+	}
+	groupsClient.Authorizer = a
+```
+
+#### Testing NewAzureIdentityCredentialAdapter
+
+This repository has a test that creates a resource group in a given subscription.
+
+To run this test, ensure you have `.env` file created and accessible from the root of your repo. Your `.env` file should have the following properties set:
+
+- AZURE_SUBSCRIPTION_ID
+- AZURE_TENANT_ID
+- AZURE_CLIENT_ID
+- AZURE_CLIENT_SECRET
+
+Once you have the `.env` file configured, run the test simply calling `go test`.
 
 ## Python
 
