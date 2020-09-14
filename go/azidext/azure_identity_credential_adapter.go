@@ -30,7 +30,7 @@ func (ca *policyAdapter) WithAuthorization() autorest.PrepareDecorator {
 			if err != nil {
 				return r, err
 			}
-			_, err = ca.p.Do(r.Context(), &azcore.Request{Request: r})
+			_, err = ca.p.Do(&azcore.Request{Request: r})
 			if errors.Is(err, azcore.ErrNoMorePolicies) {
 				return r, nil
 			}
