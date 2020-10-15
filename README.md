@@ -123,7 +123,7 @@ Once you have the `.env` file configured, run the test using JUnit 5 runner.
 
 ### AzureIdentityCredentialAdapter
 
-The `AzureIdentityCredentialAdapter` class provides a simple adapter to use DefaultAzureCredential from [@azure/identity](https://www.npmjs.com/package/@azure/identity) with any SDK
+The `AzureIdentityCredentialAdapter` class provides a simple adapter to use TokenCredential from [@azure/identity](https://www.npmjs.com/package/@azure/identity) with any SDK
 that accepts ServiceClientCredentials from packages like `@azure/arm-*` or `@azure/ms-rest-*`. 
 
 To use this type, just copy `azureIdentityCredentialAdapter.ts`, `package.json`, and `tsconfig.json` file located in `js` directory into your application and install packages in `package.json`.
