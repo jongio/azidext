@@ -1,27 +1,27 @@
 import { ServiceClientCredentials } from "@azure/ms-rest-js";
-import { DefaultAzureCredential } from "@azure/identity";
+import { DefaultAzureCredential, TokenCredential } from "@azure/identity";
 import { Constants as MSRestConstants, WebResource } from "@azure/ms-rest-js";
 import { TokenResponse } from "@azure/ms-rest-nodeauth/dist/lib/credentials/tokenClientCredentials";
 
 const DEFAULT_AUTHORIZATION_SCHEME = "Bearer";
 
 /**
- * This class provides a simple extension to use {@link DefaultAzureCredential} from com.azure:azure-identity library to
+ * This class provides a simple extension to use {@link TokenCredential} from com.azure:azure-identity library to
  * use with legacy Azure SDKs that accept {@link ServiceClientCredentials} family of credentials for authentication.
  */
 export class AzureIdentityCredentialAdapter  implements ServiceClientCredentials {
-  private defaultAzureCredential: DefaultAzureCredential;
+  private azureTokenCredential: TokenCredential;
   private scopes: string | string[];
   constructor(
-      defaultAzureCredential = new DefaultAzureCredential(),
+      azureTokenCredential = new DefaultAzureCredential(),
       scopes: string | string[] = "https://management.azure.com/.default",
     ) { 
-      this.defaultAzureCredential = defaultAzureCredential;
+      this.azureTokenCredential = azureTokenCredential;
       this.scopes = scopes;
     }
  
   public async getToken(): Promise<TokenResponse>{
-    const accessToken = (await this.defaultAzureCredential.getToken(this.scopes));
+    const accessToken = (await this.azureTokenCredential.getToken(this.scopes));
     const result: TokenResponse = {
       accessToken: accessToken.token,
       tokenType: DEFAULT_AUTHORIZATION_SCHEME,
