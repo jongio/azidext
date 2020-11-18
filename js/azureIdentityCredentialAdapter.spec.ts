@@ -1,7 +1,7 @@
 import * as assert from "assert";
 import * as dotenv from "dotenv";
 import { ResourceManagementClient } from "@azure/arm-resources";
-import { AzureIdentityCredentialAdapter } from "./azureIdentityCredentialAdapter ";
+import { AzureIdentityCredentialAdapter } from "./azureIdentityCredentialAdapter";
 
 dotenv.config({ path: "../.env" });
 
