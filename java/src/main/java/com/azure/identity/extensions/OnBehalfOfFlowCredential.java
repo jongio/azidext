@@ -5,6 +5,8 @@ import com.azure.core.credential.AccessToken;
 import com.azure.core.credential.TokenCredential;
 import com.azure.core.credential.TokenRequestContext;
 import com.azure.core.util.logging.ClientLogger;
+import com.azure.identity.extensions.implementation.IdentityClient;
+import com.azure.identity.extensions.implementation.IdentityClientBuilder;
 import com.azure.identity.implementation.util.LoggingUtil;
 import com.microsoft.aad.msal4j.UserAssertion;
 import reactor.core.publisher.Mono;
@@ -27,7 +29,7 @@ public class OnBehalfOfFlowCredential implements TokenCredential {
     OnBehalfOfFlowCredential(String tenantId, String clientId,
                              String clientSecret, String tokenString,
                              AccessToken accessToken) {
-        identityClient = new com.azure.identity.extensions.IdentityClientBuilder()
+        identityClient = new IdentityClientBuilder()
             .tenantId(tenantId)
             .clientId(clientId)
             .clientSecret(clientSecret)

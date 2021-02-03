@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-package com.azure.identity.extensions;
+package com.azure.identity.extensions.implementation;
 
 import com.azure.identity.SharedTokenCacheCredential;
 import com.azure.identity.implementation.IdentityClientOptions;
@@ -10,7 +10,7 @@ import java.io.InputStream;
 
 /**
  * Fluent client builder for instantiating an {@link IdentityClient}.
- *
+ * The constructors of [IdentityClient] class is friendly, so must include builder class.
  * @see IdentityClient
  */
 public final class IdentityClientBuilder {

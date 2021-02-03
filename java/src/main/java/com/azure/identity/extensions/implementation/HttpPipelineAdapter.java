@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-package com.azure.identity.extensions;
+package com.azure.identity.extensions.implementation;
 
 import com.azure.core.http.HttpHeader;
 import com.azure.core.http.HttpHeaders;
@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 /**
  * Adapts an HttpPipeline to an instance of IHttpClient in the MSAL4j pipeline.
+ * This class is friendly class, so must include it.
  */
 class HttpPipelineAdapter implements IHttpClient {
     private final HttpPipeline httpPipeline;

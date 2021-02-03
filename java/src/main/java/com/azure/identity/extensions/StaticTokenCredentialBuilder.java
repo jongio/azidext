@@ -1,6 +1,7 @@
 package com.azure.identity.extensions;
 
 import com.azure.core.credential.AccessToken;
+import com.azure.identity.extensions.implementation.util.ValidationUtil;
 
 import java.util.HashMap;
 
@@ -9,7 +10,7 @@ import java.util.HashMap;
  *
  * @see StaticTokenCredential
  */
-public class StaticTokenCredentialBuilder extends com.azure.identity.extensions.CredentialBuilderBase<StaticTokenCredentialBuilder> {
+public class StaticTokenCredentialBuilder extends CredentialBuilderBase<StaticTokenCredentialBuilder> {
 
     private String tokenString;
 
@@ -45,7 +46,7 @@ public class StaticTokenCredentialBuilder extends com.azure.identity.extensions.
      * @return a {@link StaticTokenCredentialBuilder} with the current configurations.
      */
     public StaticTokenCredential build() {
-        com.azure.identity.extensions.ValidationUtil.validateAllEmpty(getClass().getSimpleName(), new HashMap<String, Object>() {{
+        ValidationUtil.validateAllEmpty(getClass().getSimpleName(), new HashMap<String, Object>() {{
             put("tokenString", tokenString);
             put("accessToken", accessToken);
         }});

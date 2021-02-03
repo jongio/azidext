@@ -14,6 +14,7 @@ import java.util.function.Function;
 
 /**
  * The base class for all the credential builders.
+ * The constructor of this class is friendly, so must include it and in same folder as the extension class
  * @param <T> the type of the credential builder
  */
 public abstract class CredentialBuilderBase<T extends CredentialBuilderBase<T>> {

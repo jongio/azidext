@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-package com.azure.identity.extensions;
+package com.azure.identity.extensions.implementation;
 
 import com.azure.core.credential.AccessToken;
 import com.azure.core.credential.TokenRequestContext;
@@ -57,6 +57,7 @@ import java.util.concurrent.CompletableFuture;
 /**
  * The identity client that contains APIs to retrieve access tokens
  * from various configurations.
+ * Added two authenticate methods in this class.
  */
 public class IdentityClient {
     private static final Duration REFRESH_OFFSET = Duration.ofMinutes(5);

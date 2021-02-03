@@ -2,6 +2,8 @@ package com.azure.identity.extensions;
 
 import com.azure.core.credential.AccessToken;
 import com.azure.core.credential.TokenRequestContext;
+import com.azure.identity.extensions.implementation.IdentityClient;
+import com.azure.identity.extensions.util.TestUtils;
 import com.microsoft.aad.msal4j.UserAssertion;
 import net.minidev.json.JSONObject;
 import org.junit.Test;
@@ -39,10 +41,10 @@ public class OnBehalfOfFlowCredentialTests {
     public void testValidCacheStaticTokenString() throws Exception {
 
         // mock
-        com.azure.identity.extensions.IdentityClient identityClient = PowerMockito.mock(com.azure.identity.extensions.IdentityClient.class);
+        IdentityClient identityClient = PowerMockito.mock(IdentityClient.class);
         when(identityClient.authenticateWithOnBehalfOfCredentialCache(any(TokenRequestContext.class), any(UserAssertion.class)))
             .thenReturn(TestUtils.getMockAccessToken(token1, expiresAt));
-        PowerMockito.whenNew(com.azure.identity.extensions.IdentityClient.class).withAnyArguments().thenReturn(identityClient);
+        PowerMockito.whenNew(IdentityClient.class).withAnyArguments().thenReturn(identityClient);
 
         // test
         OnBehalfOfFlowCredential credential =
@@ -60,12 +62,12 @@ public class OnBehalfOfFlowCredentialTests {
     public void testValidStaticTokenString() throws Exception {
 
         // mock
-        com.azure.identity.extensions.IdentityClient identityClient = PowerMockito.mock(com.azure.identity.extensions.IdentityClient.class);
+        IdentityClient identityClient = PowerMockito.mock(IdentityClient.class);
         when(identityClient.authenticateWithOnBehalfOfCredentialCache(any(TokenRequestContext.class), any(UserAssertion.class)))
             .thenReturn(Mono.empty());
         when(identityClient.authenticateWithOnBehalfOfCredential(any(TokenRequestContext.class), any(UserAssertion.class)))
             .thenReturn(TestUtils.getMockAccessToken(token1, expiresAt));
-        PowerMockito.whenNew(com.azure.identity.extensions.IdentityClient.class).withAnyArguments().thenReturn(identityClient);
+        PowerMockito.whenNew(IdentityClient.class).withAnyArguments().thenReturn(identityClient);
 
         // test
         OnBehalfOfFlowCredential credential =
@@ -82,10 +84,10 @@ public class OnBehalfOfFlowCredentialTests {
     @Test
     public void testValidCacheStaticAccessToken() throws Exception {
         // mock
-        com.azure.identity.extensions.IdentityClient identityClient = PowerMockito.mock(com.azure.identity.extensions.IdentityClient.class);
+        IdentityClient identityClient = PowerMockito.mock(IdentityClient.class);
         when(identityClient.authenticateWithOnBehalfOfCredentialCache(any(TokenRequestContext.class), any(UserAssertion.class)))
             .thenReturn(TestUtils.getMockAccessToken(accessToken.getToken(), accessToken.getExpiresAt()));
-        PowerMockito.whenNew(com.azure.identity.extensions.IdentityClient.class).withAnyArguments().thenReturn(identityClient);
+        PowerMockito.whenNew(IdentityClient.class).withAnyArguments().thenReturn(identityClient);
 
         // test
         OnBehalfOfFlowCredential credential =
@@ -102,12 +104,12 @@ public class OnBehalfOfFlowCredentialTests {
     @Test
     public void testValidStaticAccessToken() throws Exception {
         // mock
-        com.azure.identity.extensions.IdentityClient identityClient = PowerMockito.mock(com.azure.identity.extensions.IdentityClient.class);
+        IdentityClient identityClient = PowerMockito.mock(IdentityClient.class);
         when(identityClient.authenticateWithOnBehalfOfCredentialCache(any(TokenRequestContext.class), any(UserAssertion.class)))
             .thenReturn(Mono.empty());
         when(identityClient.authenticateWithOnBehalfOfCredential(any(TokenRequestContext.class), any(UserAssertion.class)))
             .thenReturn(TestUtils.getMockAccessToken(accessToken.getToken(), accessToken.getExpiresAt()));
-        PowerMockito.whenNew(com.azure.identity.extensions.IdentityClient.class).withAnyArguments().thenReturn(identityClient);
+        PowerMockito.whenNew(IdentityClient.class).withAnyArguments().thenReturn(identityClient);
 
         // test
         OnBehalfOfFlowCredential credential =

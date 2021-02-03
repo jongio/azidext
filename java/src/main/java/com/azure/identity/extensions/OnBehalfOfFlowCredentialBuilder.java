@@ -1,6 +1,7 @@
 package com.azure.identity.extensions;
 
 import com.azure.core.credential.AccessToken;
+import com.azure.identity.extensions.implementation.util.ValidationUtil;
 
 import java.util.HashMap;
 
@@ -9,7 +10,7 @@ import java.util.HashMap;
  *
  * @see OnBehalfOfFlowCredential
  */
-public class OnBehalfOfFlowCredentialBuilder extends com.azure.identity.extensions.CredentialBuilderBase<OnBehalfOfFlowCredentialBuilder> {
+public class OnBehalfOfFlowCredentialBuilder extends CredentialBuilderBase<OnBehalfOfFlowCredentialBuilder> {
 
     private String tenantId;
 
@@ -81,7 +82,7 @@ public class OnBehalfOfFlowCredentialBuilder extends com.azure.identity.extensio
             put("clientId", clientId);
             put("clientSecret", clientSecret);
         }});
-        com.azure.identity.extensions.ValidationUtil.validateAllEmpty(getClass().getSimpleName(), new HashMap<String, Object>() {{
+        ValidationUtil.validateAllEmpty(getClass().getSimpleName(), new HashMap<String, Object>() {{
             put("tokenString", tokenString);
             put("accessToken", accessToken);
         }});

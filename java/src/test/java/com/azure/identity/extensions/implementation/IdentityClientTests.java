@@ -1,11 +1,12 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-package com.azure.identity.extensions;
+package com.azure.identity.extensions.implementation;
 
 import com.azure.core.credential.AccessToken;
 import com.azure.core.credential.TokenRequestContext;
 import com.azure.core.util.logging.ClientLogger;
+import com.azure.identity.extensions.util.TestUtils;
 import com.azure.identity.implementation.IdentityClientOptions;
 import com.azure.identity.implementation.util.CertificateUtil;
 import com.microsoft.aad.msal4j.ClientCredentialFactory;

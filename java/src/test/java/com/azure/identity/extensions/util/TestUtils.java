@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 
-package com.azure.identity.extensions;
+package com.azure.identity.extensions.util;
 
 import com.azure.core.credential.AccessToken;
 import com.azure.identity.implementation.MsalToken;
