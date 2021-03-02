@@ -62,7 +62,7 @@ namespace Azure.Identity.Extensions
         {
             _accessToken = new AccessToken(
             tokenString != null ? tokenString : accessToken.Token,
-            tokenString != null ? DateTimeOffset.Now.AddDays(1).UtcDateTime : accessToken.ExpiresOn
+            tokenString != null ? DateTimeOffset.UtcNow.AddDays(1) : accessToken.ExpiresOn
         );
             _pipeline = pipeline ?? CredentialPipeline.GetInstance(options);
         }

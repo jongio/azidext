@@ -11,11 +11,6 @@ using System.Threading.Tasks;
 
 namespace Azure.Identity.Extensions
 {
-    /// <summary>
-    /// Enables authentication to Azure Active Directory using a client secret that was generated for an App Registration. More information on how
-    /// to configure a client secret can be found here:
-    /// https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-configure-app-access-web-apis#add-credentials-to-your-web-application
-    /// </summary>
     public class OnBehalfOfFlowCredential : TokenCredential
     {
         private readonly MsalConfidentialClient _client;
@@ -45,16 +40,24 @@ namespace Azure.Identity.Extensions
         }
 
         /// <summary>
-        /// Creates an instance of the ClientSecretCredential with the details needed to authenticate against Azure Active Directory with a client secret.
+        /// Creates an instance of the OnBehalfOfFlowCredential.
         /// </summary>
         /// <param name="tenantId">The Azure Active Directory tenant (directory) Id of the service principal.</param>
-        /// <param name="clientId">The client (application) ID of the service principal</param>
+        /// <param name="clientId">The client (application) ID of the web api</param>
         /// <param name="clientSecret">A client secret that was generated for the App Registration used to authenticate the client.</param>
+        /// <param name="tokenString">tokenString The string of prefetched token.</param>
         public OnBehalfOfFlowCredential(string tenantId, string clientId, string clientSecret, string tokenString)
             : this(tenantId, clientId, clientSecret, tokenString, default, null, null, null)
         {
         }
 
+        /// <summary>
+        /// Creates an instance of the OnBehalfOfFlowCredential.
+        /// </summary>
+        /// <param name="tenantId">The Azure Active Directory tenant (directory) Id of the service principal.</param>
+        /// <param name="clientId">The client (application) ID of the web api</param>
+        /// <param name="clientSecret">A client secret that was generated for the App Registration used to authenticate the client.</param>
+        /// <param name="accessToken">accessToken The prefetched token.</param>
         public OnBehalfOfFlowCredential(string tenantId, string clientId, string clientSecret, AccessToken accessToken)
            : this(tenantId, clientId, clientSecret, null, accessToken, null, null, null)
         {
@@ -64,8 +67,9 @@ namespace Azure.Identity.Extensions
         /// Creates an instance of the ClientSecretCredential with the details needed to authenticate against Azure Active Directory with a client secret.
         /// </summary>
         /// <param name="tenantId">The Azure Active Directory tenant (directory) Id of the service principal.</param>
-        /// <param name="clientId">The client (application) ID of the service principal</param>
+        /// <param name="clientId">The client (application) ID of the web api</param>
         /// <param name="clientSecret">A client secret that was generated for the App Registration used to authenticate the client.</param>
+        /// <param name="tokenString">tokenString The string of prefetched token.</param>
         /// <param name="options">Options that allow to configure the management of the requests sent to the Azure Active Directory service.</param>
         public OnBehalfOfFlowCredential(string tenantId,
             string clientId, string clientSecret, string tokenString, TokenCredentialOptions options)
@@ -73,6 +77,14 @@ namespace Azure.Identity.Extensions
         {
         }
 
+        /// <summary>
+        /// Creates an instance of the ClientSecretCredential with the details needed to authenticate against Azure Active Directory with a client secret.
+        /// </summary>
+        /// <param name="tenantId">The Azure Active Directory tenant (directory) Id of the service principal.</param>
+        /// <param name="clientId">The client (application) ID of the web api</param>
+        /// <param name="clientSecret">A client secret that was generated for the App Registration used to authenticate the client.</param>
+        /// <param name="accessToken">accessToken The prefetched token.</param>
+        /// <param name="options">Options that allow to configure the management of the requests sent to the Azure Active Directory service.</param>
         public OnBehalfOfFlowCredential(string tenantId, string clientId, string clientSecret, AccessToken accessToken, TokenCredentialOptions options)
            : this(tenantId, clientId, clientSecret, null, accessToken, options, null, null)
         {
