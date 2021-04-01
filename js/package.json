@@ -6,20 +6,23 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch & nodemon dist",
-    "test": "tsc && mocha dist/*.spec.js --timeout 10000",
-    "lint": "eslint src --ext ts",
+    "test": "npm run build && mocha --no-timeouts --recursive dist/test/*.spec.js",
+    "lint": "eslint package.json credential test --ext .ts",
     "tsc": "tsc",
     "start": "node dist/azureIdentityCredentialAdapter.js"
   },
   "dependencies": {
     "@azure/arm-resources": "^2.1.0",
+    "@azure/core-http": "^1.2.0",
+    "@azure/core-tracing": "^1.0.0-preview.10",
     "@azure/identity": "^1.1.0",
     "@azure/ms-rest-nodeauth": "^2.0.5",
-    "dotenv": "^8.2.0"
+    "@opentelemetry/api": "^0.10.2",
+    "qs": "^6.10.1"
   },
   "devDependencies": {
-    "mocha": "^7.2.0",
-    "@types/mocha": "^7.0.2"
+    "@types/mocha": "^7.0.2",
+    "mocha": "^7.2.0"
   },
   "author": "",
   "license": "MIT"

@@ -13,14 +13,14 @@ export class AzureIdentityCredentialAdapter implements ServiceClientCredentials 
   private azureTokenCredential: TokenCredential;
   private scopes: string | string[];
   constructor(
-      azureTokenCredential = new DefaultAzureCredential(),
-      scopes: string | string[] = "https://management.azure.com/.default",
-    ) { 
-      this.azureTokenCredential = azureTokenCredential;
-      this.scopes = scopes;
-    }
- 
-  public async getToken(): Promise<TokenResponse>{
+    azureTokenCredential = new DefaultAzureCredential(),
+    scopes: string | string[] = "https://management.azure.com/.default",
+  ) {
+    this.azureTokenCredential = azureTokenCredential;
+    this.scopes = scopes;
+  }
+
+  public async getToken(): Promise<TokenResponse> {
     const accessToken = (await this.azureTokenCredential.getToken(this.scopes));
     const result: TokenResponse = {
       accessToken: accessToken.token,
