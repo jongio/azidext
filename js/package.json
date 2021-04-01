@@ -7,7 +7,7 @@
     "build": "tsc",
     "dev": "tsc --watch & nodemon dist",
     "test": "npm run build && mocha --no-timeouts --recursive dist/test/*.spec.js",
-    "lint": "eslint package.json credential test --ext .ts",
+    "lint": "eslint package.json src test --ext .ts",
     "tsc": "tsc",
     "start": "node dist/azureIdentityCredentialAdapter.js"
   },
