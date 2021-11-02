@@ -15,8 +15,8 @@ import (
 )
 
 // NewTokenCredentialAdapter is used to adapt an azcore.TokenCredential to an autorest.Authorizer
-func NewTokenCredentialAdapter(credential azcore.TokenCredential, requestOptions policy.TokenRequestOptions) autorest.Authorizer {
-	tkPolicy := runtime.NewBearerTokenPolicy(credential, requestOptions.Scopes, nil)
+func NewTokenCredentialAdapter(credential azcore.TokenCredential, scopes []string) autorest.Authorizer {
+	tkPolicy := runtime.NewBearerTokenPolicy(credential, scopes, nil)
 	return &policyAdapter{
 		pl: runtime.NewPipeline("azidext", "v0.2.0", nil, []policy.Policy{tkPolicy, nullPolicy{}}, nil),
 	}
@@ -75,25 +75,23 @@ type DefaultAzureCredentialOptions struct {
 	// Set this to nil to accept the underlying default behavior.
 	DefaultCredential *azidentity.DefaultAzureCredentialOptions
 
-	// RequestOptions contains configuration options used when requesting a token.
+	// Scopes contains the list of permission scopes required for the token.
 	// Setting this to nil will use the DefaultManagementScope when acquiring a token.
-	RequestOptions *policy.TokenRequestOptions
+	Scopes []string
 }
 
 // NewDefaultAzureCredentialAdapter adapts azcore.NewDefaultAzureCredential to an autorest.Authorizer.
 func NewDefaultAzureCredentialAdapter(options *DefaultAzureCredentialOptions) (autorest.Authorizer, error) {
 	if options == nil {
 		options = &DefaultAzureCredentialOptions{
-			RequestOptions: &policy.TokenRequestOptions{
-				Scopes: []string{DefaultManagementScope},
-			},
+			Scopes: []string{DefaultManagementScope},
 		}
 	}
 	cred, err := azidentity.NewDefaultAzureCredential(options.DefaultCredential)
 	if err != nil {
 		return nil, err
 	}
-	return NewTokenCredentialAdapter(cred, *options.RequestOptions), nil
+	return NewTokenCredentialAdapter(cred, options.Scopes), nil
 }
 
 // dummy policy to terminate the pipeline
