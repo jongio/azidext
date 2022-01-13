@@ -18,7 +18,9 @@ import (
 func NewTokenCredentialAdapter(credential azcore.TokenCredential, scopes []string) autorest.Authorizer {
 	tkPolicy := runtime.NewBearerTokenPolicy(credential, scopes, nil)
 	return &policyAdapter{
-		pl: runtime.NewPipeline("azidext", "v0.2.0", nil, []policy.Policy{tkPolicy, nullPolicy{}}, nil),
+		pl: runtime.NewPipeline("azidext", "v0.2.0", runtime.PipelineOptions{
+			PerRetry: []policy.Policy{tkPolicy, nullPolicy{}},
+		}, nil),
 	}
 }
 
@@ -42,14 +44,11 @@ func (ca *policyAdapter) WithAuthorization() autorest.PrepareDecorator {
 			_, err = ca.pl.Do(req)
 			// if the authentication failed due to invalid/missing credentials
 			// return a wrapped error so the retry policy won't kick in.
-			var afe azidentity.AuthenticationFailedError
-			if errors.As(err, &afe) {
-				return r, &tokenRefreshError{
-					inner: err,
-				}
+			type nonRetriable interface {
+				NonRetriable()
 			}
-			var cue azidentity.CredentialUnavailableError
-			if errors.As(err, &cue) {
+			var nre nonRetriable
+			if errors.As(err, &nre) {
 				return r, &tokenRefreshError{
 					inner: err,
 				}
