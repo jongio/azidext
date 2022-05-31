@@ -37,7 +37,7 @@ func Test_CreateResouceGroup(t *testing.T) {
 		context.Background(),
 		resourceGroupname,
 		resources.Group{
-			Location: to.StringPtr("Central US"),
+			Location: to.Ptr("Central US"),
 		})
 	if err != nil {
 		t.Fatalf("Create ResourceGroup fail, error: %v", err)
