@@ -18,7 +18,7 @@ import (
 func NewTokenCredentialAdapter(credential azcore.TokenCredential, scopes []string) autorest.Authorizer {
 	tkPolicy := runtime.NewBearerTokenPolicy(credential, scopes, nil)
 	return &policyAdapter{
-		pl: runtime.NewPipeline("azidext", "v0.2.0", runtime.PipelineOptions{
+		pl: runtime.NewPipeline("azidext", "v0.4.0", runtime.PipelineOptions{
 			PerRetry: []policy.Policy{tkPolicy, nullPolicy{}},
 		}, nil),
 	}
